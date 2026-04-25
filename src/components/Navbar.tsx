@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Mail, Phone } from "lucide-react";
 import styles from "./Navbar.module.css";
 import { useEffect, useState } from "react";
 import { clsx } from "clsx";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Magnetic from "./Magnetic";
+import { FacebookIcon, YoutubeIcon, InstagramIcon, TiktokIcon } from "./SocialIcons";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -129,33 +130,66 @@ export default function Navbar() {
             aria-label="Close menu"
           />
           <div className={styles.mobileMenuPanel}>
-            <div className={styles.mobileMenuHeader}>
-              <span className={styles.mobileMenuTitle}>Menu</span>
-              <button
-                className={styles.mobileMenuClose}
-                onClick={() => setMobileMenuOpen(false)}
-                aria-label="Close menu"
-              >
-                <X size={22} />
-              </button>
+            <button
+              className={styles.mobileMenuClose}
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={24} />
+            </button>
+
+            {/* Logo */}
+            <div className={styles.mobileMenuLogo}>
+              <Image
+                src="/assets/logo.png"
+                alt="World Ark Missions Logo"
+                width={60}
+                height={60}
+                className={styles.mobileLogoImage}
+              />
             </div>
 
+            {/* Navigation Links */}
             <div className={styles.mobileMenuLinks}>
               <Link href="/#home" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Home</Link>
-              {isLive && (
-                <Link href="/live" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Live Now</Link>
-              )}
               <Link href="/about" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>About</Link>
-              <Link href="/#ministries" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Ministries</Link>
-              <Link href="/#services" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Services</Link>
-              <Link href="/#sermons" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Sermons</Link>
-              <Link href="/giving" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Giving</Link>
+              <Link href="/events" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Events</Link>
+              <Link href="/sermons" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Sermons</Link>
+              <Link href="/testimonials" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Testimonials</Link>
               <Link href="/contact" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Contact</Link>
             </div>
 
-            <Link href="/contact" className={styles.mobileMenuCta} onClick={() => setMobileMenuOpen(false)}>
-              Plan a Visit
-            </Link>
+            {/* Contact Info */}
+            <div className={styles.mobileMenuContact}>
+              <a href="mailto:worldarkmission1@gmail.com" className={styles.mobileMenuContactItem}>
+                <span className={styles.contactIcon}>
+                  <Mail size={18} />
+                </span>
+                <span>worldarkmission1@gmail.com</span>
+              </a>
+              <a href="tel:+233303958804" className={styles.mobileMenuContactItem}>
+                <span className={styles.contactIcon}>
+                  <Phone size={18} />
+                </span>
+                <span>+233 30 395 8804</span>
+              </a>
+            </div>
+
+            {/* Social Media */}
+            <div className={styles.mobileMenuSocial}>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <FacebookIcon size={20} />
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <YoutubeIcon size={20} />
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <InstagramIcon size={20} />
+              </a>
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <TiktokIcon size={20} />
+              </a>
+            </div>
           </div>
         </div>
       )}
