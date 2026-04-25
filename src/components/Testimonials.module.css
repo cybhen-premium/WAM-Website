@@ -210,3 +210,37 @@
     font-size: 0.9rem;
   }
 }
+
+@media (max-width: 768px) {
+  .testimonialSection {
+    padding: 2.25rem 0;
+  }
+
+  .headerContainer {
+    margin-bottom: 1.25rem;
+  }
+
+  .marqueeWrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1.25rem 0;
+  }
+
+  .marqueeWrapper::before,
+  .marqueeWrapper::after {
+    width: 56px;
+  }
+
+  .marqueeContent {
+    width: auto;
+    animation: none;
+    scroll-snap-type: x mandatory;
+    padding: 0 1.5rem;
+  }
+
+  .card {
+    flex: 0 0 86vw;
+    max-width: 420px;
+    scroll-snap-align: start;
+  }
+}
