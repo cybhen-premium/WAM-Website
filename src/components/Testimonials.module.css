@@ -221,8 +221,6 @@
   }
 
   .marqueeWrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     padding: 1.25rem 0;
   }
 
@@ -232,15 +230,10 @@
   }
 
   .marqueeContent {
-    width: auto;
-    animation: none;
-    scroll-snap-type: x mandatory;
-    padding: 0 1.5rem;
+    animation: scroll 45s linear infinite;
   }
 
   .card {
-    flex: 0 0 86vw;
-    max-width: 420px;
-    scroll-snap-align: start;
+    flex: 0 0 320px;
   }
 }
