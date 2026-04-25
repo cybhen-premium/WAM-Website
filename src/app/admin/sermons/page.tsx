@@ -6,8 +6,16 @@ import styles from "./Sermons.module.css";
 import { Plus, Search, MoreVertical, Edit2, Trash2, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
+ type SermonItem = {
+   id: string | number;
+   title: string;
+   speaker: string;
+   category: string;
+   date: string | number | Date;
+ };
+
 export default function AdminSermons() {
-  const [sermons, setSermons] = useState([]);
+  const [sermons, setSermons] = useState<SermonItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
 

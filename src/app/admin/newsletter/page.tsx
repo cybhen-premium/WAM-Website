@@ -5,8 +5,16 @@ import Sidebar from "@/components/Sidebar";
 import styles from "../sermons/Sermons.module.css";
 import { Mail, User, Trash2, Download } from "lucide-react";
 
+ type SubscriberItem = {
+   id: string | number;
+   email: string;
+   name?: string | null;
+   isActive: boolean;
+   subscribedAt: string | number | Date;
+ };
+
 export default function AdminNewsletter() {
-  const [subscribers, setSubscribers] = useState([]);
+  const [subscribers, setSubscribers] = useState<SubscriberItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -61,7 +69,7 @@ export default function AdminNewsletter() {
                   <tr key={sub.id}>
                     <td>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#2563eb', color: 'white', display: 'flex', alignItems: 'center', justifyCenter: 'center', fontSize: 12, fontWeight: 700 }}>
+                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#2563eb', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700 }}>
                           <Mail size={14} />
                         </div>
                         <div>

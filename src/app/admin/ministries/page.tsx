@@ -6,8 +6,16 @@ import styles from "../sermons/Sermons.module.css";
 import { Plus, Edit2, Trash2, User } from "lucide-react";
 import Link from "next/link";
 
+ type MinistryItem = {
+   id: string | number;
+   name: string;
+   leadName?: string | null;
+   isActive: boolean;
+   order: number;
+ };
+
 export default function AdminMinistries() {
-  const [ministries, setMinistries] = useState([]);
+  const [ministries, setMinistries] = useState<MinistryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

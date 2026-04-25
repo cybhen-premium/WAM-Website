@@ -18,7 +18,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function AdminDashboard() {
   const { data: session } = useSession();
   const [counts, setCounts] = useState({ sermons: 0, messages: 0, prayers: 0, subscribers: 0 });
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState<any[]>([]);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   useEffect(() => {

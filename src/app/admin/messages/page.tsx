@@ -5,8 +5,18 @@ import Sidebar from "@/components/Sidebar";
 import styles from "../sermons/Sermons.module.css";
 import { Mail, User, Trash2, CheckCircle, MessageSquare } from "lucide-react";
 
+ type MessageItem = {
+   id: string | number;
+   name: string;
+   email: string;
+   subject?: string | null;
+   message: string;
+   createdAt: string | number | Date;
+   isRead: boolean;
+ };
+
 export default function AdminMessages() {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<MessageItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

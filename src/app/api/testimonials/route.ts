@@ -24,8 +24,7 @@ export async function POST(request: Request) {
     const result = await db.insert(testimonials).values({
       name: body.name,
       content: body.content,
-      category: body.category,
-      date: body.date,
+      role: body.category,
       imageUrl: body.imageUrl,
     }).returning();
     

@@ -21,13 +21,21 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
+    const slug =
+      body.slug ||
+      String(body.title || "")
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
     const result = await db.insert(sermons).values({
       title: body.title,
+      slug,
       description: body.description,
       speaker: body.speaker || "Rev. Benjamin Eturu Adom",
       date: new Date(body.date),
       category: body.category,
-      imageUrl: body.imageUrl,
+      coverUrl: body.imageUrl,
       videoUrl: body.videoUrl,
     }).returning();
     

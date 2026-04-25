@@ -6,8 +6,16 @@ import styles from "../sermons/Sermons.module.css"; // Reuse shared table styles
 import { Plus, Search, MoreVertical, Edit2, Trash2, Calendar } from "lucide-react";
 import Link from "next/link";
 
+ type EventItem = {
+   id: string | number;
+   title: string;
+   date: string | number | Date;
+   location: string;
+   status: string;
+ };
+
 export default function AdminEvents() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

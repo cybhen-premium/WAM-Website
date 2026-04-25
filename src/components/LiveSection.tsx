@@ -5,8 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./LiveSection.module.css";
 import { Radio, X, ExternalLink } from "lucide-react";
 
+ type LiveData = {
+   isLive: boolean;
+   title?: string | null;
+   videoId?: string | null;
+ };
+
 export default function LiveSection() {
-  const [liveData, setLiveData] = useState(null);
+  const [liveData, setLiveData] = useState<LiveData | null>(null);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, varchar, integer, boolean, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, varchar, integer, serial, boolean, uuid } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
 export const users = pgTable("users", {
@@ -106,7 +106,7 @@ export const newsletterSubscribers = pgTable("newsletter_subscribers", {
 });
 
 export const siteSettings = pgTable("site_settings", {
-  id: integer("id").primaryKey(),
+  id: serial("id").primaryKey(),
   key: varchar("key", { length: 255 }).notNull().unique(),
   value: text("value"),
   type: varchar("type", { length: 50 }),
@@ -114,7 +114,7 @@ export const siteSettings = pgTable("site_settings", {
 });
 
 export const liveStreamSettings = pgTable("live_stream_settings", {
-  id: integer("id").primaryKey(),
+  id: serial("id").primaryKey(),
   platform: varchar("platform", { length: 50 }).notNull(),
   embedUrl: text("embed_url"),
   videoId: text("video_id"),

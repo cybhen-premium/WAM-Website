@@ -5,8 +5,18 @@ import Sidebar from "@/components/Sidebar";
 import styles from "../sermons/Sermons.module.css";
 import { Search, CheckCircle, Clock, Eye, Trash2 } from "lucide-react";
 
+ type PrayerRequestItem = {
+   id: string | number;
+   name: string;
+   phone?: string | null;
+   email?: string | null;
+   request: string;
+   isPrayed: boolean;
+   createdAt: string | number | Date;
+ };
+
 export default function AdminPrayerRequests() {
-  const [requests, setRequests] = useState([]);
+  const [requests, setRequests] = useState<PrayerRequestItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

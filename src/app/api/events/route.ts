@@ -26,9 +26,8 @@ export async function POST(request: Request) {
       description: body.description,
       location: body.location,
       date: new Date(body.date),
-      type: body.type,
-      imageUrl: body.imageUrl,
-      status: body.status || "upcoming",
+      category: body.type,
+      bannerUrl: body.imageUrl,
     }).returning();
     
     return NextResponse.json(result[0]);
