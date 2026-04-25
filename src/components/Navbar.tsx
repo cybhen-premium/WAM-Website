@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import styles from "./Navbar.module.css";
 import { useEffect, useState } from "react";
 import { clsx } from "clsx";
@@ -11,6 +11,7 @@ import Magnetic from "./Magnetic";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [isLive, setIsLive] = useState(false);
 
@@ -32,6 +33,15 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileMenuOpen]);
 
   const [announcement, setAnnouncement] = useState("");
   const [announcementEnabled, setAnnouncementEnabled] = useState(false);
@@ -100,11 +110,55 @@ export default function Navbar() {
             </Link>
           </Magnetic>
 
-          <button className={styles.mobileMenuToggle}>
+          <button
+            className={styles.mobileMenuToggle}
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileMenuOpen}
+          >
             <Menu size={24} />
           </button>
         </div>
       </div>
+
+      {mobileMenuOpen && (
+        <div className={styles.mobileMenuRoot}>
+          <button
+            className={styles.mobileMenuBackdrop}
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+          />
+          <div className={styles.mobileMenuPanel}>
+            <div className={styles.mobileMenuHeader}>
+              <span className={styles.mobileMenuTitle}>Menu</span>
+              <button
+                className={styles.mobileMenuClose}
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            <div className={styles.mobileMenuLinks}>
+              <Link href="/#home" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Home</Link>
+              {isLive && (
+                <Link href="/live" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Live Now</Link>
+              )}
+              <Link href="/about" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>About</Link>
+              <Link href="/#ministries" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Ministries</Link>
+              <Link href="/#services" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Services</Link>
+              <Link href="/#sermons" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Sermons</Link>
+              <Link href="/giving" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Giving</Link>
+              <Link href="/contact" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+            </div>
+
+            <Link href="/contact" className={styles.mobileMenuCta} onClick={() => setMobileMenuOpen(false)}>
+              Plan a Visit
+            </Link>
+          </div>
+        </div>
+      )}
     </motion.nav>
   );
 }
