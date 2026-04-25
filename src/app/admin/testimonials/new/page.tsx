@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
-import styles from "../sermons/new/NewSermon.module.css";
+import styles from "../../sermons/new/NewSermon.module.css";
 import { ArrowLeft, Save } from "lucide-react";
 import Link from "next/link";
 
