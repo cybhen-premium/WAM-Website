@@ -1,0 +1,175 @@
+.main {
+  background: var(--background);
+}
+
+.hero {
+  padding: 12rem 0 8rem;
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('/assets/10.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.storySection {
+  padding: 6rem 0;
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.textContent h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.textContent p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #4b5563;
+  opacity: 0.9;
+}
+
+.badge {
+  background: rgba(255, 126, 51, 0.1); /* Match amber/orange theme */
+  color: #ff7e33;
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: fit-content;
+}
+
+.imageContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.storyLogo {
+  width: 80%;
+  height: auto;
+  max-width: 400px;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+}
+
+.pillarsSection {
+  padding: 8rem 0;
+  background: #f8fafc;
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.pillar {
+  background: white;
+  padding: 4rem 3rem;
+  border-radius: var(--radius);
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.pillar:hover {
+  transform: translateY(-10px);
+}
+
+.pillarIcon {
+  width: 64px;
+  height: 64px;
+  background: var(--color-primary-cta);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 auto 2rem;
+}
+
+.pillar h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.pillar p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  opacity: 0.7;
+}
+
+.visionSection {
+  padding: 8rem 0;
+}
+
+.visionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.visionCard {
+  background: var(--foreground);
+  color: white;
+  padding: 4rem;
+  border-radius: var(--radius);
+}
+
+.visionCard h3 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-primary-cta);
+}
+
+.visionCard p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+@media (max-width: 1024px) {
+  .storyGrid, .pillarsGrid, .visionGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero {
+    padding: 10rem 0 4rem;
+  }
+}

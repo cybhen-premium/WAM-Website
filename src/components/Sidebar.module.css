@@ -1,0 +1,136 @@
+.sidebar {
+  width: 280px;
+  background: #042954; /* Deep Navy from image */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.sidebarHeader {
+  padding: 1.5rem;
+  background: #ffce00; /* Yellow from image */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sidebarHeader h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #042954;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.nav {
+  flex: 1;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.nav::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  color: #a0aec0;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 0.9375rem;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffce00 !important;
+}
+
+.sidebarFooter {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #ffce00;
+  color: #042954;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.userInfo {
+  overflow: hidden;
+}
+
+.userName {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  margin: 0;
+  color: white;
+}
+
+.userEmail {
+  font-size: 0.75rem;
+  color: #718096;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout:hover {
+  background: #e53e3e;
+  border-color: #e53e3e;
+  transform: translateY(-1px);
+}
+
+.logo {
+  object-fit: contain;
+}

@@ -1,0 +1,174 @@
+.givingPage {
+  background: white;
+}
+
+.hero {
+  padding: 12rem 0 8rem;
+  text-align: center;
+  background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('/assets/12.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.heroContent h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.heroContent p {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.methods {
+  padding: 8rem 0;
+  background: #f8fafc;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 3rem;
+}
+
+.card {
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 126, 51, 0.1);
+  color: #ff7e33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+}
+
+.card h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.paymentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: #f8fafc;
+  padding: 1.75rem;
+  border-radius: 1rem;
+  margin: 0.5rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.infoRow span {
+  opacity: 0.6;
+  font-weight: 500;
+}
+
+.infoRow strong {
+  color: #1e293b;
+}
+
+.code {
+  font-family: inherit;
+  font-size: 1rem;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  color: #ff7e33;
+  font-weight: 700;
+  border: 1px solid rgba(255, 126, 51, 0.2);
+}
+
+.instruction {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  color: #475569;
+}
+
+.verse {
+  margin-top: 8rem;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4rem;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.05);
+}
+
+.verse blockquote {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-style: italic;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.verse cite {
+  font-weight: 700;
+  color: #ff7e33;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.875rem;
+  font-style: normal;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 10rem 0 5rem;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .card {
+    padding: 2rem;
+  }
+  
+  .verse {
+    margin-top: 4rem;
+    padding: 2rem;
+  }
+}
+
