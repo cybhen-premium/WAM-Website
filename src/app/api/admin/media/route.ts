@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import fs from "fs/promises";
 import path from "path";
+import { 
+  isCloudinaryConfigured, 
+  uploadToCloudinary, 
+  deleteFromCloudinary, 
+  listCloudinaryImages 
+} from "@/lib/cloudinary";
 
 function formatBytes(bytes: number, decimals = 1) {
   if (bytes === 0) return "0 B";
@@ -32,25 +38,44 @@ export async function GET() {
     const assetsDir = path.join(publicDir, "assets");
     const uploadsDir = path.join(publicDir, "uploads");
 
-    // Ensure uploads directory exists
-    try {
-      await fs.access(uploadsDir);
-    } catch {
-      await fs.mkdir(uploadsDir, { recursive: true });
-    }
-
     const items: Array<{
       name: string;
       url: string;
       size: string;
       sizeBytes: number;
       modified: string;
-      folder: "assets" | "uploads";
+      folder: "assets" | "uploads" | "cloudinary";
       category: string;
     }> = [];
 
-    // Scan uploads first (most recent / custom user images)
+    const cloudinaryActive = isCloudinaryConfigured();
+
+    // 1. If Cloudinary is configured, list images from Cloudinary
+    if (cloudinaryActive) {
+      try {
+        const cloudResources = await listCloudinaryImages("world-ark-missions", 100);
+        for (const res of cloudResources) {
+          const baseName = (res.public_id || "").split("/").pop() || "image";
+          const ext = res.format ? `.${res.format}` : "";
+          const fileName = `${baseName}${ext}`;
+          items.push({
+            name: fileName,
+            url: res.secure_url,
+            size: formatBytes(res.bytes || 0),
+            sizeBytes: res.bytes || 0,
+            modified: res.created_at || new Date().toISOString(),
+            folder: "cloudinary",
+            category: "Cloudinary",
+          });
+        }
+      } catch (cloudErr) {
+        console.error("Failed to fetch from Cloudinary:", cloudErr);
+      }
+    }
+
+    // 2. Scan uploads directory (local custom uploads)
     try {
+      await fs.access(uploadsDir);
       const uploadFiles = await fs.readdir(uploadsDir);
       for (const file of uploadFiles) {
         const ext = path.extname(file).toLowerCase();
@@ -71,7 +96,7 @@ export async function GET() {
       // ignore
     }
 
-    // Scan public/assets
+    // 3. Scan public/assets (built-in system assets)
     try {
       const assetFiles = await fs.readdir(assetsDir);
       for (const file of assetFiles) {
@@ -99,8 +124,11 @@ export async function GET() {
     return NextResponse.json({
       images: items,
       total: items.length,
+      cloudinaryCount: items.filter((i) => i.folder === "cloudinary").length,
       uploadsCount: items.filter((i) => i.folder === "uploads").length,
       assetsCount: items.filter((i) => i.folder === "assets").length,
+      isCloudinaryConfigured: cloudinaryActive,
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME || null,
     });
   } catch (error) {
     console.error("Failed to read media:", error);
@@ -128,31 +156,56 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No files provided" }, { status: 400 });
     }
 
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    await fs.mkdir(uploadsDir, { recursive: true });
+    const cloudinaryActive = isCloudinaryConfigured();
+    const uploadedResults: Array<{ name: string; url: string; size: string; storage: string }> = [];
 
-    const uploadedResults: Array<{ name: string; url: string; size: string }> = [];
+    if (cloudinaryActive) {
+      // Cloudinary cloud upload
+      for (const file of filesToProcess) {
+        const ext = path.extname(file.name).toLowerCase();
+        if (!ALLOWED_EXTENSIONS.includes(ext)) continue;
 
-    for (const file of filesToProcess) {
-      const ext = path.extname(file.name).toLowerCase();
-      if (!ALLOWED_EXTENSIONS.includes(ext)) {
-        continue;
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const rawBase = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "_").toLowerCase();
+        const publicId = `${rawBase}-${Date.now()}`;
+
+        const uploadRes = await uploadToCloudinary(buffer, {
+          folder: "world-ark-missions",
+          public_id: publicId,
+        });
+
+        uploadedResults.push({
+          name: `${publicId}.${uploadRes.format || ext.replace(".", "")}`,
+          url: uploadRes.secure_url,
+          size: formatBytes(uploadRes.bytes),
+          storage: "cloudinary",
+        });
       }
+    } else {
+      // Fallback: Local filesystem uploads
+      const uploadsDir = path.join(process.cwd(), "public", "uploads");
+      await fs.mkdir(uploadsDir, { recursive: true });
 
-      // Clean filename and add timestamp to avoid collisions
-      const rawBase = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "_").toLowerCase();
-      const safeName = `${rawBase}-${Date.now()}${ext}`;
-      const destPath = path.join(uploadsDir, safeName);
+      for (const file of filesToProcess) {
+        const ext = path.extname(file.name).toLowerCase();
+        if (!ALLOWED_EXTENSIONS.includes(ext)) continue;
 
-      const arrayBuffer = await file.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      await fs.writeFile(destPath, buffer);
+        const rawBase = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "_").toLowerCase();
+        const safeName = `${rawBase}-${Date.now()}${ext}`;
+        const destPath = path.join(uploadsDir, safeName);
 
-      uploadedResults.push({
-        name: safeName,
-        url: `/uploads/${safeName}`,
-        size: formatBytes(file.size),
-      });
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        await fs.writeFile(destPath, buffer);
+
+        uploadedResults.push({
+          name: safeName,
+          url: `/uploads/${safeName}`,
+          size: formatBytes(file.size),
+          storage: "local",
+        });
+      }
     }
 
     if (uploadedResults.length === 0) {
@@ -163,10 +216,11 @@ export async function POST(request: Request) {
       success: true,
       uploaded: uploadedResults,
       count: uploadedResults.length,
+      storage: cloudinaryActive ? "cloudinary" : "local",
     });
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
+    return NextResponse.json({ error: "Upload failed: " + (error instanceof Error ? error.message : "Unknown error") }, { status: 500 });
   }
 }
 
@@ -182,19 +236,25 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "Image URL required" }, { status: 400 });
     }
 
-    // Safety: Only permit deleting files in /uploads/
-    if (!url.startsWith("/uploads/")) {
-      return NextResponse.json(
-        { error: "Cannot delete built-in system assets. Only custom uploads can be removed." },
-        { status: 403 }
-      );
+    // 1. Delete from Cloudinary if it is a Cloudinary URL
+    if (url.includes("res.cloudinary.com")) {
+      await deleteFromCloudinary(url);
+      return NextResponse.json({ success: true, message: "Deleted from Cloudinary successfully" });
     }
 
-    const filename = path.basename(url);
-    const filePath = path.join(process.cwd(), "public", "uploads", filename);
+    // 2. Delete from local /uploads/
+    if (url.startsWith("/uploads/")) {
+      const filename = path.basename(url);
+      const filePath = path.join(process.cwd(), "public", "uploads", filename);
+      await fs.unlink(filePath);
+      return NextResponse.json({ success: true, message: `Deleted ${filename}` });
+    }
 
-    await fs.unlink(filePath);
-    return NextResponse.json({ success: true, message: `Deleted ${filename}` });
+    // 3. Prevent deleting built-in assets
+    return NextResponse.json(
+      { error: "Cannot delete built-in system assets. Only custom uploads can be removed." },
+      { status: 403 }
+    );
   } catch (error) {
     console.error("Delete error:", error);
     return NextResponse.json({ error: "Failed to delete image" }, { status: 500 });

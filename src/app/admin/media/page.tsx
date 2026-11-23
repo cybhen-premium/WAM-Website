@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { 
   ImageIcon, UploadCloud, Search, Copy, Check, Trash2, 
-  Eye, RefreshCw, X, FolderCheck, HardDrive, Filter, AlertCircle 
+  Eye, RefreshCw, X, FolderCheck, HardDrive, Filter, AlertCircle, Cloud
 } from "lucide-react";
 import styles from "./Media.module.css";
 import Sidebar from "@/components/Sidebar";
@@ -16,7 +16,7 @@ interface MediaItem {
   size: string;
   sizeBytes: number;
   modified: string;
-  folder: "assets" | "uploads";
+  folder: "assets" | "uploads" | "cloudinary";
   category: string;
 }
 
@@ -30,6 +30,8 @@ export default function MediaManager() {
   const [activeModalImage, setActiveModalImage] = useState<MediaItem | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [notification, setNotification] = useState<string | null>(null);
+  const [isCloudinaryConfigured, setIsCloudinaryConfigured] = useState(false);
+  const [cloudName, setCloudName] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -41,6 +43,8 @@ export default function MediaManager() {
       if (data.images) {
         setImages(data.images);
       }
+      setIsCloudinaryConfigured(Boolean(data.isCloudinaryConfigured));
+      setCloudName(data.cloudName || null);
     } catch (err) {
       console.error("Failed to fetch media:", err);
     } finally {
@@ -83,7 +87,8 @@ export default function MediaManager() {
 
       const result = await res.json();
       if (result.success) {
-        showNotification(`Uploaded ${result.count} image${result.count > 1 ? "s" : ""} successfully!`);
+        const dest = result.storage === "cloudinary" ? "Cloudinary" : "server";
+        showNotification(`Uploaded ${result.count} image${result.count > 1 ? "s" : ""} to ${dest}!`);
         await fetchMedia();
       } else {
         alert(result.error || "Upload failed");
@@ -98,7 +103,7 @@ export default function MediaManager() {
   };
 
   const handleDeleteImage = async (url: string) => {
-    if (!confirm(`Are you sure you want to delete ${url}? This cannot be undone.`)) return;
+    if (!confirm(`Are you sure you want to delete this image? This cannot be undone.`)) return;
 
     try {
       const res = await fetch("/api/admin/media", {
@@ -146,10 +151,12 @@ export default function MediaManager() {
     const matchesSearch = img.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           img.url.toLowerCase().includes(searchQuery.toLowerCase());
     if (selectedCategory === "all") return matchesSearch;
+    if (selectedCategory === "Cloudinary") return matchesSearch && img.folder === "cloudinary";
     if (selectedCategory === "Uploads") return matchesSearch && img.folder === "uploads";
     return matchesSearch && img.category.toLowerCase() === selectedCategory.toLowerCase();
   });
 
+  const cloudinaryCount = images.filter((i) => i.folder === "cloudinary").length;
   const uploadsCount = images.filter((i) => i.folder === "uploads").length;
   const assetsCount = images.filter((i) => i.folder === "assets").length;
 
@@ -161,8 +168,8 @@ export default function MediaManager() {
         {/* Top Header */}
         <div className={styles.topBar}>
           <div className={styles.pageHeader}>
-            <h1>Media & Image Library</h1>
-            <p>Upload, browse, copy URLs, and manage site imagery for sermons, events, and ministries.</p>
+            <h1>Media &amp; Image Library</h1>
+            <p>Upload, browse, copy URLs, and manage imagery hosted via Cloudinary &amp; website storage.</p>
           </div>
 
           <div className={styles.topActions}>
@@ -172,7 +179,7 @@ export default function MediaManager() {
               disabled={uploading}
             >
               <UploadCloud size={18} />
-              {uploading ? "Uploading..." : "Upload New Images"}
+              {uploading ? "Uploading..." : isCloudinaryConfigured ? "Upload to Cloudinary" : "Upload New Images"}
             </button>
             <button 
               onClick={fetchMedia} 
@@ -220,12 +227,42 @@ export default function MediaManager() {
             </div>
 
             <div className={styles.statCard}>
+              <div 
+                className={styles.statIcon} 
+                style={{ 
+                  background: isCloudinaryConfigured ? "rgba(2, 132, 199, 0.2)" : "rgba(148, 163, 184, 0.15)", 
+                  color: isCloudinaryConfigured ? "#38bdf8" : "#94a3b8" 
+                }}
+              >
+                <Cloud size={22} />
+              </div>
+              <div>
+                <h4>{cloudinaryCount}</h4>
+                <p style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                  <span>Cloudinary Media</span>
+                  {isCloudinaryConfigured && (
+                    <span style={{ 
+                      fontSize: "0.68rem", 
+                      background: "rgba(56, 189, 248, 0.15)", 
+                      color: "#38bdf8", 
+                      padding: "1px 6px", 
+                      borderRadius: "4px",
+                      fontWeight: 700 
+                    }}>
+                      CONNECTED ({cloudName})
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.statCard}>
               <div className={styles.statIcon} style={{ background: "rgba(16, 185, 129, 0.15)", color: "#10b981" }}>
                 <UploadCloud size={22} />
               </div>
               <div>
                 <h4>{uploadsCount}</h4>
-                <p>Custom Uploads</p>
+                <p>Local Uploads</p>
               </div>
             </div>
 
@@ -235,7 +272,7 @@ export default function MediaManager() {
               </div>
               <div>
                 <h4>{assetsCount}</h4>
-                <p>System Assets</p>
+                <p>Built-in Assets</p>
               </div>
             </div>
           </div>
@@ -262,16 +299,24 @@ export default function MediaManager() {
               <div className={styles.dropIcon}>
                 <UploadCloud size={26} />
               </div>
-              <h3>{uploading ? "Uploading files to server..." : "Click or drag & drop images here to upload"}</h3>
+              <h3>
+                {uploading 
+                  ? "Uploading images to " + (isCloudinaryConfigured ? "Cloudinary..." : "server...") 
+                  : "Click or drag & drop images here to upload"}
+              </h3>
               <p>Supports PNG, JPG, JPEG, WEBP, GIF, SVG up to 10MB each</p>
-              <span className={styles.fileHints}>Uploaded images are automatically saved to /public/uploads/ and ready to use anywhere on the website.</span>
+              <span className={styles.fileHints}>
+                {isCloudinaryConfigured 
+                  ? `⚡ Images are automatically optimized and uploaded directly to Cloudinary (cloud: ${cloudName}, folder: world-ark-missions).`
+                  : "Uploaded images are automatically saved to /public/uploads/ and ready to use anywhere on the website."}
+              </span>
             </div>
           </div>
 
           {/* Filter & Search Controls */}
           <div className={styles.filterBar}>
             <div className={styles.tabs}>
-              {["all", "Uploads", "Services", "Leadership", "Ministries", "Branding", "General"].map((cat) => (
+              {["all", "Cloudinary", "Uploads", "Services", "Leadership", "Ministries", "Branding", "General"].map((cat) => (
                 <button
                   key={cat}
                   className={`${styles.tabBtn} ${selectedCategory === cat ? styles.activeTab : ""}`}
@@ -286,7 +331,7 @@ export default function MediaManager() {
               <Search size={16} className={styles.searchIcon} />
               <input 
                 type="text" 
-                placeholder="Search images by name..." 
+                placeholder="Search images by name or URL..." 
                 className={styles.searchInput}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -310,11 +355,15 @@ export default function MediaManager() {
             ) : (
               filteredImages.map((img) => {
                 const isCopied = copiedUrl === img.url;
+                const canDelete = img.folder === "uploads" || img.folder === "cloudinary";
                 return (
                   <div key={img.url} className={styles.imageCard}>
                     <div className={styles.thumbContainer}>
-                      <span className={`${styles.thumbBadge} ${img.folder === "uploads" ? styles.badgeUpload : styles.badgeAsset}`}>
-                        {img.folder === "uploads" ? "Upload" : img.category}
+                      <span className={`${styles.thumbBadge} ${
+                        img.folder === "cloudinary" ? styles.badgeCloudinary :
+                        img.folder === "uploads" ? styles.badgeUpload : styles.badgeAsset
+                      }`}>
+                        {img.folder === "cloudinary" ? "Cloudinary" : img.folder === "uploads" ? "Upload" : img.category}
                       </span>
 
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -342,11 +391,11 @@ export default function MediaManager() {
                         >
                           {isCopied ? <Check size={16} color="#10b981" /> : <Copy size={16} />}
                         </button>
-                        {img.folder === "uploads" && (
+                        {canDelete && (
                           <button 
                             className={styles.overlayBtn} 
                             onClick={() => handleDeleteImage(img.url)}
-                            title="Delete upload"
+                            title="Delete image"
                             style={{ color: "#ef4444" }}
                           >
                             <Trash2 size={16} />
@@ -391,7 +440,7 @@ export default function MediaManager() {
           <div className={styles.modalBackdrop} onClick={() => setActiveModalImage(null)}>
             <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
               <div className={styles.modalHeader}>
-                <h3>Image Details & Usage</h3>
+                <h3>Image Details &amp; Usage</h3>
                 <button className={styles.closeBtn} onClick={() => setActiveModalImage(null)}>
                   <X size={20} />
                 </button>
@@ -415,12 +464,17 @@ export default function MediaManager() {
                   </div>
 
                   <div className={styles.detailRow}>
-                    <label>File Size & Location</label>
-                    <div style={{ color: "#94a3b8" }}>{activeModalImage.size} · Folder: {activeModalImage.folder}</div>
+                    <label>Storage &amp; Size</label>
+                    <div style={{ color: "#94a3b8" }}>
+                      {activeModalImage.size} · Storage: {
+                        activeModalImage.folder === "cloudinary" ? "Cloudinary Cloud" :
+                        activeModalImage.folder === "uploads" ? "Local Upload" : "System Asset"
+                      }
+                    </div>
                   </div>
 
                   <div className={styles.detailRow}>
-                    <label>Direct Image URL (Copy & Paste)</label>
+                    <label>Direct Image URL (Copy &amp; Paste)</label>
                     <div className={styles.codeBox}>
                       <code>{activeModalImage.url}</code>
                       <button 
@@ -434,7 +488,7 @@ export default function MediaManager() {
                   </div>
 
                   <div className={styles.detailRow}>
-                    <label>Next.js Image Code</label>
+                    <label>Next.js Image Tag</label>
                     <div className={styles.codeBox}>
                       <code>{`<Image src="${activeModalImage.url}" alt="${activeModalImage.name}" fill />`}</code>
                       <button 
@@ -447,7 +501,7 @@ export default function MediaManager() {
                     </div>
                   </div>
 
-                  {activeModalImage.folder === "uploads" && (
+                  {(activeModalImage.folder === "uploads" || activeModalImage.folder === "cloudinary") && (
                     <div style={{ marginTop: "1rem" }}>
                       <button 
                         onClick={() => handleDeleteImage(activeModalImage.url)}
@@ -466,7 +520,7 @@ export default function MediaManager() {
                         }}
                       >
                         <Trash2 size={15} />
-                        Delete Uploaded Image
+                        Delete {activeModalImage.folder === "cloudinary" ? "from Cloudinary" : "Uploaded Image"}
                       </button>
                     </div>
                   )}
