@@ -9,7 +9,7 @@
     "email": "worldarkmission1@gmail.com"
   },
   "hero": {
-    "image": "/uploads/785688777_1518129007021079_2650027685842306335_n-1795452659335.jpg",
+    "image": "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477671/world-ark-missions/785688777_1518129007021079_2650027685842306335_n-1795452659335.jpg",
     "titlePrefix": "Sunday at",
     "titleHighlight": "World Ark Missions",
     "subtitle": "A Place of Salvation, Transformation & Purpose · Afienya",
@@ -106,8 +106,8 @@
     "subtitle": "Discover communities where you can grow spiritually, build meaningful relationships, and serve God."
   },
   "founder": {
-    "founderImage": "/uploads/859083897_1575806527919993_8382702015489067531_n-1795452835286.jpg",
-    "familyImage": "/uploads/865726749_1575805814586731_796445935231716405_n-1795452806652.jpg",
+    "founderImage": "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477672/world-ark-missions/859083897_1575806527919993_8382702015489067531_n-1795452835286.jpg",
+    "familyImage": "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477673/world-ark-missions/865726749_1575805814586731_796445935231716405_n-1795452806652.jpg",
     "tag": "Our Vision & Leadership",
     "title": "Hope that doesn’t fade.",
     "founderName": "Rev. Benjamin Eturu Adom",

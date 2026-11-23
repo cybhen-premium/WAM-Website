@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import styles from "./AgendaSection.module.css";
 import { motion } from "framer-motion";
+import defaultSections from "@/data/siteSections.json";
 
-const defaultGatherings = [
+const defaultGatherings = defaultSections.gatherings || [
   {
     dayNum: "SUN",
     badge: "WEEKLY",
@@ -42,7 +43,7 @@ const defaultGatherings = [
 
 export default function AgendaSection() {
   const [gatherings, setGatherings] = useState(defaultGatherings);
-  const [header, setHeader] = useState({
+  const [header, setHeader] = useState(defaultSections.servicesHeader || {
     titlePrefix: "Services &",
     titleHighlight: "upcoming.",
     subtitle: "Weekly worship services, scripture discipleship, and prayer encounters."

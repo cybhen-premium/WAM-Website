@@ -5,17 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./Hero.module.css";
 import { motion } from "framer-motion";
+import defaultSections from "@/data/siteSections.json";
 
 export default function Hero() {
-  const [heroData, setHeroData] = useState({
-    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477258/world-ark-missions/SUNDAY.jpg",
-    titlePrefix: "Sunday at",
-    titleHighlight: "World Ark Missions",
-    subtitle: "A Place of Salvation, Transformation & Purpose · Afienya",
-    serviceTag: "Sunday Worship",
-    serviceHeading: "Now two services",
-    serviceTimes: "Sundays 8:00 AM · 10:30 AM",
-  });
+  const [heroData, setHeroData] = useState(defaultSections.hero);
 
   useEffect(() => {
     fetch("/api/sections")

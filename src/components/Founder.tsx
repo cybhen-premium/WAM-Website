@@ -5,18 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./Founder.module.css";
 import { motion } from "framer-motion";
+import defaultSections from "@/data/siteSections.json";
 
 export default function Founder() {
-  const [founderData, setFounderData] = useState({
-    founderImage: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477256/world-ark-missions/rev.jpg",
-    familyImage: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477208/world-ark-missions/11.jpg",
-    tag: "Our Vision & Leadership",
-    title: "Hope that doesn’t fade.",
-    founderName: "Rev. Benjamin Adom",
-    familyLabel: "Worship Family",
-    bio1: "Rev. Benjamin Eturu Adom is the visionary founder of World Ark Missions, a ministry birthed out of a deep passion for God and a divine mandate to touch lives through the power of salvation and transformation.",
-    bio2: "From humble beginnings in Afienya, Rev. Adom dedicated his life to prayer, deep scripture teaching, and raising a family of believers whose lives impact society. At World Ark Missions, everyone discovers a genuine home where they can encounter Christ and unlock their God-given destiny.",
-  });
+  const [founderData, setFounderData] = useState(defaultSections.founder);
 
   useEffect(() => {
     fetch("/api/sections")

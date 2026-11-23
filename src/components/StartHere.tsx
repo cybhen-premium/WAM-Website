@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./StartHere.module.css";
 import { motion } from "framer-motion";
+import defaultSections from "@/data/siteSections.json";
 
-const defaultPathways = [
+const defaultPathways = defaultSections.startHere || [
   {
     tag: "New?",
     title: "Start here",
@@ -39,7 +40,7 @@ const defaultPathways = [
 
 export default function StartHere() {
   const [pathways, setPathways] = useState(defaultPathways);
-  const [header, setHeader] = useState({
+  const [header, setHeader] = useState(defaultSections.startHereHeader || {
     titlePrefix: "Start",
     titleHighlight: "here.",
     subtitle: "Four ways to connect with World Ark Missions."
