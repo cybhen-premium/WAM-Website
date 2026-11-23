@@ -1,0 +1,112 @@
+.footer {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-darker);
+  color: #ffffff;
+  padding-top: clamp(80px, 8vw, 120px);
+  padding-bottom: 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.topGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: 48px;
+  padding-bottom: 72px;
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.brandTagline {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.colHeading {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 6px 0;
+}
+
+.colText {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+}
+
+.colLink {
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.colLink:hover {
+  color: var(--color-accent);
+}
+
+.bottomRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.watermark {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.8;
+  font-size: clamp(32px, 8.8vw, 130px);
+  color: var(--color-accent);
+  opacity: 0.95;
+  user-select: none;
+  margin: 0;
+  margin-bottom: -0.5vw;
+  padding-left: clamp(12px, 2vw, 32px);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 991px) {
+  .topGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .topGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+    padding-bottom: 48px;
+  }
+}

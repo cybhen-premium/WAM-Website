@@ -1,0 +1,126 @@
+.givingPage {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+.hero {
+  padding-top: 150px;
+  padding-bottom: 70px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 700px;
+}
+
+.heroContent h1 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+  font-size: clamp(40px, 6vw, 84px);
+  color: #ffffff;
+}
+
+.heroContent p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.methods {
+  padding: var(--section-padding);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.iconWrapper {
+  width: 52px;
+  height: 52px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+}
+
+.card h2 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 28px;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.card p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.paymentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.infoRow span {
+  color: var(--text-muted);
+}
+
+.infoRow strong {
+  color: #ffffff;
+}
+
+.code {
+  font-family: monospace;
+  background-color: rgba(184, 212, 50, 0.15);
+  color: var(--color-accent);
+  padding: 4px 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.instruction {
+  font-size: 14px;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "brand": {
+    "churchName": "World Ark Missions",
+    "shortName": "WORLD ARK MISSIONS",
+    "tagline": "A place of salvation, transformation & purpose in Afienya.",
+    "address": "Afienya, Greater Accra, Ghana",
+    "gps": "GN-1252-6647",
+    "phone": "+233 30 395 8804",
+    "email": "worldarkmission1@gmail.com"
+  },
+  "hero": {
+    "image": "/uploads/785688777_1518129007021079_2650027685842306335_n-1795452659335.jpg",
+    "titlePrefix": "Sunday at",
+    "titleHighlight": "World Ark Missions",
+    "subtitle": "A Place of Salvation, Transformation & Purpose · Afienya",
+    "serviceTag": "Sunday Worship",
+    "serviceHeading": "Now two services",
+    "serviceTimes": "Sundays 8:00 AM · 10:30 AM"
+  },
+  "startHereHeader": {
+    "titlePrefix": "Start",
+    "titleHighlight": "here.",
+    "subtitle": "Four ways to connect with World Ark Missions."
+  },
+  "startHere": [
+    {
+      "id": "new",
+      "tag": "New?",
+      "title": "Start here",
+      "desc": "Times, directions to Afienya, and what to expect.",
+      "href": "#services",
+      "image": "/assets/SUNDAY.jpeg"
+    },
+    {
+      "id": "watch",
+      "tag": "Online",
+      "title": "Watch",
+      "desc": "Every message and service, live and on demand.",
+      "href": "#sermons",
+      "image": "/assets/holy-week-celebration-vivid-colors_23-2151195211.jpg"
+    },
+    {
+      "id": "belong",
+      "tag": "Community",
+      "title": "Belong",
+      "desc": "Ministries and fellowship groups for every generation.",
+      "href": "#ministries",
+      "image": "/assets/11.jpg"
+    },
+    {
+      "id": "give",
+      "tag": "Partner",
+      "title": "Give",
+      "desc": "Partner with us in Kingdom expansion and community outreach.",
+      "href": "/giving",
+      "image": "/assets/7.jpeg"
+    }
+  ],
+  "servicesHeader": {
+    "titlePrefix": "Services &",
+    "titleHighlight": "upcoming.",
+    "subtitle": "Weekly worship services, scripture discipleship, and prayer encounters."
+  },
+  "gatherings": [
+    {
+      "id": "sun",
+      "dayNum": "SUN",
+      "badge": "WEEKLY",
+      "category": "Main Worship Service",
+      "title": "Sunday Celebration Service",
+      "time": "8:00 AM & 10:30 AM · Main Sanctuary, Afienya",
+      "link": "#services"
+    },
+    {
+      "id": "wed",
+      "dayNum": "WED",
+      "badge": "WEEKLY",
+      "category": "Spiritual Growth",
+      "title": "Know Jesus More (KJMC)",
+      "time": "6:30 PM · Deep Scripture & Discipleship",
+      "link": "#services"
+    },
+    {
+      "id": "fri",
+      "dayNum": "FRI",
+      "badge": "WEEKLY",
+      "category": "Intercession & Healing",
+      "title": "Rescue Hour of Prayer",
+      "time": "6:30 PM · Prayer, Deliverance & Breakthrough",
+      "link": "#services"
+    },
+    {
+      "id": "sat",
+      "dayNum": "SAT",
+      "badge": "WEEKLY",
+      "category": "Evangelism & Care",
+      "title": "Community Outreach & Visitation",
+      "time": "Saturday Morning · Community Impact & Fellowship",
+      "link": "#services"
+    }
+  ],
+  "ministriesHeader": {
+    "badge": "Our Ministries",
+    "titlePrefix": "Belong &",
+    "titleHighlight": "serve.",
+    "subtitle": "Discover communities where you can grow spiritually, build meaningful relationships, and serve God."
+  },
+  "founder": {
+    "founderImage": "/uploads/859083897_1575806527919993_8382702015489067531_n-1795452835286.jpg",
+    "familyImage": "/uploads/865726749_1575805814586731_796445935231716405_n-1795452806652.jpg",
+    "tag": "Our Vision & Leadership",
+    "title": "Hope that doesn’t fade.",
+    "founderName": "Rev. Benjamin Eturu Adom",
+    "familyLabel": "L.P Gifty Adom",
+    "bio1": "Rev. Benjamin Eturu Adom is the visionary founder of World Ark Missions, a ministry birthed out of a deep passion for God and a divine mandate to touch lives through the power of salvation and transformation.",
+    "bio2": "From humble beginnings in Afienya, Rev. Adom dedicated his life to prayer, deep scripture teaching, and raising a family of believers whose lives impact society. At World Ark Missions, everyone discovers a genuine home where they can encounter Christ and unlock their God-given destiny."
+  },
+  "giving": {
+    "bannerImage": "/assets/7.jpeg",
+    "title": "Give & Partner",
+    "subtitle": "Support Kingdom advancement, community outreaches, and global evangelism."
+  }
+}

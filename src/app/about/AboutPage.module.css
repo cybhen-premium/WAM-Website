@@ -1,0 +1,379 @@
+.aboutPage {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  padding-top: clamp(140px, 15vw, 190px);
+  padding-bottom: clamp(60px, 7vw, 100px);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bgImage {
+  object-fit: cover;
+  filter: grayscale(0.55) brightness(0.25);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.4) 0%, rgba(18, 18, 18, 0.96) 100%);
+  z-index: 2;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 3;
+  max-width: 850px;
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+  line-height: 0.9;
+  font-size: clamp(44px, 6.5vw, 88px);
+  color: #ffffff;
+  margin: 12px 0 20px 0;
+}
+
+.heroSubTitle {
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 680px;
+}
+
+/* Story Section */
+.storySection {
+  padding: var(--section-padding);
+  background-color: var(--bg-primary);
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+  font-size: clamp(34px, 4.2vw, 60px);
+  color: #ffffff;
+  margin: 0;
+}
+
+.storyParagraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.storyParagraphs strong {
+  color: #ffffff;
+}
+
+.founderNote {
+  margin-top: 10px;
+  padding: 20px 24px;
+  background-color: var(--bg-secondary);
+  border-left: 3px solid var(--color-accent);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.founderQuote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+.founderAuthor {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+}
+
+.imageContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.emblemCard {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: clamp(36px, 4vw, 56px) 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.storyLogo {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
+}
+
+.emblemCaption {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  margin: 0;
+}
+
+/* Vision & Mission Section (Redesigned) */
+.visionSection {
+  padding: var(--section-padding);
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.visionHeader {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto clamp(40px, 5vw, 64px) auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.visionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3.5vw, 44px);
+}
+
+.visionCard {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
+  padding: clamp(36px, 4.5vw, 56px) clamp(28px, 3.5vw, 44px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+  border-top: 3px solid transparent;
+}
+
+.visionCard:hover {
+  border-top-color: var(--color-accent);
+  transform: translateY(-4px);
+}
+
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.visionTag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  background-color: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.3);
+  padding: 4px 10px;
+  line-height: 1;
+}
+
+.visionIconBox {
+  width: 48px;
+  height: 48px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-light);
+  flex-shrink: 0;
+}
+
+.visionTitle {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.visionStatement {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(20px, 2.1vw, 25px);
+  line-height: 1.5;
+  color: #ffffff;
+  margin: 0;
+}
+
+.visionFooter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Pillars Section */
+.pillarsSection {
+  padding: var(--section-padding);
+  background-color: var(--bg-primary);
+}
+
+.pillarsHeader {
+  margin-bottom: clamp(36px, 4.5vw, 60px);
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  background-color: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+}
+
+.pillar {
+  background-color: var(--bg-secondary);
+  padding: clamp(32px, 3.5vw, 48px) clamp(24px, 2.5vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-top: 2px solid transparent;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.pillar:hover {
+  border-top-color: var(--color-accent);
+  background-color: var(--bg-tertiary);
+}
+
+.pillarIcon {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--color-accent-light);
+  line-height: 1;
+}
+
+.pillarTitle {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.pillarDesc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* CTA Banner */
+.aboutCta {
+  padding: clamp(60px, 8vw, 100px) 0;
+  background-color: var(--bg-darker);
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.ctaContent {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  font-size: clamp(32px, 4vw, 54px);
+  color: #ffffff;
+  margin: 0;
+}
+
+.ctaDesc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 991px) {
+  .storyGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .visionGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pillarsGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

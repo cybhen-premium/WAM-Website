@@ -1,0 +1,164 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #080c11;
+  color: #ffffff;
+}
+
+.main {
+  flex: 1;
+  padding: clamp(24px, 3.5vw, 48px);
+  max-width: 1050px;
+  overflow-x: auto;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+  transition: color 0.2s ease;
+}
+
+.backBtn:hover {
+  color: var(--color-accent-light, #3b82f6);
+}
+
+.header h1 {
+  font-family: var(--font-heading, sans-serif);
+  font-weight: 900;
+  font-size: clamp(26px, 2.8vw, 36px);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.formCard {
+  background-color: #0f141c;
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldFull {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label, .fieldFull label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.field input, .field select, .fieldFull textarea {
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #080c11;
+  color: #ffffff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.field input:focus, .field select:focus, .fieldFull textarea:focus {
+  border-color: var(--color-primary, #2563eb);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cancelBtn {
+  padding: 12px 24px;
+  background-color: #161e2b;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+  background-color: #202b3d;
+  color: #ffffff;
+}
+
+.saveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background-color: var(--color-primary, #2563eb);
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background-color: var(--color-accent-hover, #1d4ed8);
+  transform: translateY(-2px);
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 991px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fieldFull {
+    grid-column: span 1;
+  }
+}
