@@ -8,8 +8,8 @@ import { motion } from "framer-motion";
 
 export default function Founder() {
   const [founderData, setFounderData] = useState({
-    founderImage: "/assets/rev.jpeg",
-    familyImage: "/assets/11.jpg",
+    founderImage: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477256/world-ark-missions/rev.jpg",
+    familyImage: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477208/world-ark-missions/11.jpg",
     tag: "Our Vision & Leadership",
     title: "Hope that doesn’t fade.",
     founderName: "Rev. Benjamin Adom",

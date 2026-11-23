@@ -12,7 +12,7 @@ const sermons = [
     speaker: "Rev. Benjamin Eturu Adom",
     date: "Sunday Service",
     category: "Sunday Word",
-    image: "/assets/SUNDAY.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477258/world-ark-missions/SUNDAY.jpg",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const sermons = [
     speaker: "Rev. Benjamin Eturu Adom",
     date: "Friday Night",
     category: "Rescue Hour",
-    image: "/assets/rescue.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477251/world-ark-missions/rescue.jpg",
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const sermons = [
     speaker: "Rev. Benjamin Eturu Adom",
     date: "Wednesday Word",
     category: "Know Jesus More",
-    image: "/assets/KJMC.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477238/world-ark-missions/KJMC.jpg",
   },
 ];
 

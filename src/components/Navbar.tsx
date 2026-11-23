@@ -58,7 +58,7 @@ export default function Navbar() {
         <div className={styles.headerContainer}>
           <Link href="/" className={styles.logoLink} aria-label={`${churchName} Home`}>
             <Image 
-              src="/assets/logo.png" 
+              src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477247/world-ark-missions/logo.png" 
               alt={`${churchName} Logo`} 
               width={34} 
               height={34} 
@@ -110,7 +110,7 @@ export default function Navbar() {
           <div className={styles.mobileHeader}>
             <Link href="/" className={styles.logoLink} onClick={() => setMobileMenuOpen(false)}>
               <Image 
-                src="/assets/logo.png" 
+                src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477247/world-ark-missions/logo.png" 
                 alt="World Ark Missions Logo" 
                 width={32} 
                 height={32} 

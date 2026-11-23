@@ -8,19 +8,19 @@ const testimonials = [
   {
     name: "Sarah Mensah",
     role: "Women of Grace Member",
-    image: "/assets/portrait-young-smiling-woman-wearing-sportswear-morning-park_93675-133003.jpg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477251/world-ark-missions/portrait-young-smiling-woman-wearing-sportswear-morning-park_93675-133003.jpg",
     content: "World Ark Missions changed my entire perspective on faith and family. I found warmth, divine purpose, and a sisterhood that truly prays with you.",
   },
   {
     name: "Kwame Asante",
     role: "Youth Leader",
-    image: "/assets/smiling-african-american-man-looking_74855-5149.jpg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477256/world-ark-missions/smiling-african-american-man-looking_74855-5149.jpg",
     content: "The teachings by Rev. Benjamin Adom challenged me to lead with biblical integrity and pursue my career with Kingdom conviction.",
   },
   {
     name: "Eunice & David Baah",
     role: "Church Family",
-    image: "/assets/female-male-patients-applauding_23-2148398348.jpg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477236/world-ark-missions/female-male-patients-applauding_23-2148398348.jpg",
     content: "When we stepped into World Ark Missions in Afienya, we knew we had arrived home. The presence of God during Sunday worship is undeniable.",
   },
 ];

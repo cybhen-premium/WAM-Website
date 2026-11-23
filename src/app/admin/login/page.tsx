@@ -51,7 +51,7 @@ export default function AdminLogin() {
       <div className={styles.card}>
         <div className={styles.brandHeader}>
           <Image 
-            src="/assets/logo.png" 
+            src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477247/world-ark-missions/logo.png" 
             alt="World Ark Missions Official Crest" 
             width={64} 
             height={64} 

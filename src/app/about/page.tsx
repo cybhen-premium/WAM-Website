@@ -14,7 +14,7 @@ export default function AboutPage() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image 
-            src="/assets/abstract-blur-wedding-hall_74190-5228.jpg" 
+            src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477221/world-ark-missions/abstract-blur-wedding-hall_74190-5228.jpg" 
             alt="World Ark Missions Sanctuary Heritage" 
             fill 
             sizes="100vw"
@@ -71,7 +71,7 @@ export default function AboutPage() {
             <div className={styles.imageContent}>
               <div className={styles.emblemCard}>
                 <Image 
-                  src="/assets/logo.png" 
+                  src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477247/world-ark-missions/logo.png" 
                   alt="World Ark Missions Official Crest" 
                   width={260} 
                   height={260} 

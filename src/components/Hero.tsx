@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   const [heroData, setHeroData] = useState({
-    image: "/assets/SUNDAY.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477258/world-ark-missions/SUNDAY.jpg",
     titlePrefix: "Sunday at",
     titleHighlight: "World Ark Missions",
     subtitle: "A Place of Salvation, Transformation & Purpose · Afienya",

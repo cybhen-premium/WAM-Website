@@ -9,7 +9,7 @@ export default function MissionBanner() {
   return (
     <section className={styles.bannerSection}>
       <Image 
-        src="/assets/7.jpeg" 
+        src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477218/world-ark-missions/7.jpg" 
         alt="World Ark Missions Sanctuary Gathering" 
         fill
         sizes="100vw"

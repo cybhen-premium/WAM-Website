@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "World Ark Missions",
     images: [
       {
-        url: "/assets/logo.png",
+        url: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477247/world-ark-missions/logo.png",
         width: 800,
         height: 800,
         alt: "World Ark Missions Logo",

@@ -43,7 +43,7 @@ export default function ContactPage() {
         <section className={styles.hero}>
           <div className={styles.heroBg}>
             <Image 
-              src="/assets/7.jpeg" 
+              src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477218/world-ark-missions/7.jpg" 
               alt="World Ark Missions Sanctuary" 
               fill 
               sizes="100vw"

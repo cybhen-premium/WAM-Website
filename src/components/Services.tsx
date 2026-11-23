@@ -10,28 +10,28 @@ const services = [
     title: "Sunday Service",
     time: "8:00 AM",
     description: "A time of powerful worship and life-changing word.",
-    image: "/assets/SUNDAY.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477258/world-ark-missions/SUNDAY.jpg",
   },
   {
     id: 2,
     title: "Wednesday (Know Jesus More)",
     time: "6:30 PM",
     description: "Deep dive into scripture and spiritual growth.",
-    image: "/assets/KJMC.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477238/world-ark-missions/KJMC.jpg",
   },
   {
     id: 3,
     title: "Friday (Rescue Hour)",
     time: "6:30 PM",
     description: "Intercession, healing, and breakthroughs.",
-    image: "/assets/rescue.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477251/world-ark-missions/rescue.jpg",
   },
   {
     id: 4,
     title: "Saturday (Visitation)",
     time: "Saturday AM",
     description: "Saturday morning intercession and community visitation.",
-    image: "/assets/COM.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477230/world-ark-missions/COM.jpg",
   },
 ];
 

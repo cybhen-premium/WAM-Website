@@ -12,28 +12,28 @@ const defaultPathways = [
     title: "Start here",
     desc: "Times, directions to Afienya, and what to expect.",
     href: "#services",
-    image: "/assets/SUNDAY.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477258/world-ark-missions/SUNDAY.jpg",
   },
   {
     tag: "Online",
     title: "Watch",
     desc: "Every message and service, live and on demand.",
     href: "#sermons",
-    image: "/assets/holy-week-celebration-vivid-colors_23-2151195211.jpg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477240/world-ark-missions/holy-week-celebration-vivid-colors_23-2151195211.jpg",
   },
   {
     tag: "Community",
     title: "Belong",
     desc: "Ministries and fellowship groups for every generation.",
     href: "#ministries",
-    image: "/assets/11.jpg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477208/world-ark-missions/11.jpg",
   },
   {
     tag: "Partner",
     title: "Give",
     desc: "Partner with us in Kingdom expansion and community outreach.",
     href: "/giving",
-    image: "/assets/7.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477218/world-ark-missions/7.jpg",
   },
 ];
 

@@ -12,21 +12,21 @@ const events = [
     title: "Global Missions & Purpose Summit",
     type: "Conference",
     time: "Annual Gathering · Afienya",
-    image: "/assets/grayscale-shot-old-building-interior-surrounded-by-lights_181624-11774.jpg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477237/world-ark-missions/grayscale-shot-old-building-interior-surrounded-by-lights_181624-11774.jpg",
   },
   {
     id: 2,
     title: "Youth Awakening Fire Retreat",
     type: "Youth Retreat",
     time: "Weekend Encounter",
-    image: "/assets/YOUTH.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477263/world-ark-missions/YOUTH.jpg",
   },
   {
     id: 3,
     title: "Community Outreach & Visitation",
     type: "Evangelism & Care",
     time: "Monthly Saturday Outreach",
-    image: "/assets/COM.jpeg",
+    image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477230/world-ark-missions/COM.jpg",
   },
 ];
 

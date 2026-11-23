@@ -251,7 +251,7 @@ export default function GivingPage() {
               <div className={styles.flyerImageWrapper}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
-                  src="/assets/momo-details.jpg" 
+                  src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477248/world-ark-missions/momo-details.jpg" 
                   alt="World Ark Missions Mobile Money & Bank Accounts" 
                   className={styles.flyerImage} 
                 />

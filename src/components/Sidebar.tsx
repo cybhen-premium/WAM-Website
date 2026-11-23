@@ -55,7 +55,7 @@ export default function Sidebar() {
       <div className={styles.sidebarHeader}>
         <div className={styles.logoWrapper}>
           <Image 
-            src="/assets/logo.png" 
+            src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477247/world-ark-missions/logo.png" 
             alt="World Ark Missions Crest" 
             width={36} 
             height={36} 
