@@ -145,3 +145,14 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: 400px;
+    padding-bottom: 36px;
+  }
+
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
+}

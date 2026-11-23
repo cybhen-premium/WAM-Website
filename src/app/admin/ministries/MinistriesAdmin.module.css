@@ -452,3 +452,26 @@
   color: #fca5a5;
   border-color: rgba(239, 68, 68, 0.4);
 }
+
+@media (max-width: 991px) {
+  .layout {
+    flex-direction: column;
+  }
+  .main {
+    height: auto;
+    min-height: 100vh;
+  }
+  .header {
+    padding: 1.25rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .container {
+    padding: 1.25rem 1rem;
+  }
+  .infoBanner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

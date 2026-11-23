@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import PrayerFAB from "@/components/PrayerFAB";
 import PageTransition from "@/components/PageTransition";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#121212",
+};
 
 export const metadata: Metadata = {
   title: "World Ark Missions | A Place of Salvation, Transformation & Purpose",

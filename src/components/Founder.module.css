@@ -102,3 +102,18 @@
     margin-top: 24px;
   }
 }
+
+@media (max-width: 640px) {
+  .imagesCol {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .offsetImage {
+    margin-top: 0;
+  }
+
+  .imageWrapper {
+    aspect-ratio: 4 / 3;
+  }
+}

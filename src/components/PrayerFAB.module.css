@@ -228,3 +228,28 @@
   font-size: 0.95rem;
   line-height: 1.5;
 }
+
+@media (max-width: 640px) {
+  .fabContainer {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .fab {
+    width: 48px;
+    height: 48px;
+  }
+
+  .givingFab {
+    width: 42px;
+    height: 42px;
+  }
+
+  .modalOverlay {
+    padding: 1rem;
+  }
+
+  .modal {
+    padding: 1.5rem 1.25rem;
+  }
+}

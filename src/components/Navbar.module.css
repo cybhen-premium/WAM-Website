@@ -233,3 +233,29 @@
     display: inline-flex;
   }
 }
+
+@media (max-width: 640px) {
+  .headerContainer {
+    padding: 0 16px;
+    height: 64px;
+    gap: 12px;
+  }
+
+  .actions a {
+    display: none;
+  }
+
+  .logoText {
+    font-size: 15px;
+  }
+
+  .logoImage {
+    width: 28px;
+    height: 28px;
+  }
+
+  .menuButton {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}

@@ -377,3 +377,14 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 110px;
+    padding-bottom: 40px;
+  }
+
+  .pillar {
+    padding: 24px 18px;
+  }
+}

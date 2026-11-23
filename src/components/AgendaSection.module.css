@@ -88,9 +88,9 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-accent-light);
-  background-color: rgba(37, 99, 235, 0.12);
-  border: 1px solid rgba(37, 99, 235, 0.3);
+  color: var(--color-accent);
+  background-color: rgba(184, 212, 50, 0.12);
+  border: 1px solid rgba(184, 212, 50, 0.3);
   padding: 3px 8px;
   line-height: 1;
   display: inline-block;
@@ -108,7 +108,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-accent-light);
+  color: var(--color-accent);
 }
 
 .eventTitle {
@@ -125,7 +125,7 @@
 }
 
 .rowItem:hover .eventTitle {
-  color: var(--color-accent-light);
+  color: var(--color-accent);
 }
 
 .eventMeta {
