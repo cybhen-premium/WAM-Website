@@ -15,7 +15,7 @@
   height: 100%;
   object-fit: cover;
   object-position: 80% 25%;
-  filter: grayscale(0.35) brightness(0.38);
+  filter: brightness(0.75);
   z-index: 1;
 }
 
@@ -24,9 +24,9 @@
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(18, 18, 18, 0.96) 0%,
-    rgba(18, 18, 18, 0.84) 48%,
-    rgba(18, 18, 18, 0.35) 100%
+    rgba(18, 18, 18, 0.94) 0%,
+    rgba(18, 18, 18, 0.72) 45%,
+    rgba(18, 18, 18, 0.15) 100%
   );
   z-index: 2;
 }
