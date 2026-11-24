@@ -1,23 +1,25 @@
 import { v2 as cloudinary } from "cloudinary";
 
-// Configure Cloudinary with environment variables
+const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || "dm5bp1efp";
+const API_KEY = process.env.CLOUDINARY_API_KEY || "839789914633163";
+const API_SECRET = process.env.CLOUDINARY_API_SECRET || "3j0kDRQkJ0xBo_hCCXvBNRZow1o";
+
+// Configure Cloudinary with environment variables or fallback credentials
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: CLOUD_NAME,
+  api_key: API_KEY,
+  api_secret: API_SECRET,
   secure: true,
 });
 
 export { cloudinary };
 
 /**
- * Checks whether Cloudinary credentials are set in environment variables
+ * Checks whether Cloudinary credentials are set in environment variables or defaults
  */
 export function isCloudinaryConfigured(): boolean {
   return Boolean(
-    (process.env.CLOUDINARY_CLOUD_NAME &&
-      process.env.CLOUDINARY_API_KEY &&
-      process.env.CLOUDINARY_API_SECRET) ||
+    (CLOUD_NAME && API_KEY && API_SECRET) ||
       process.env.CLOUDINARY_URL
   );
 }

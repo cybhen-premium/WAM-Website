@@ -85,17 +85,23 @@ export default function MediaManager() {
         body: formData,
       });
 
-      const result = await res.json();
-      if (result.success) {
+      let result: any = {};
+      try {
+        result = await res.json();
+      } catch {
+        // response was not JSON
+      }
+
+      if (res.ok && result.success) {
         const dest = result.storage === "cloudinary" ? "Cloudinary" : "server";
         showNotification(`Uploaded ${result.count} image${result.count > 1 ? "s" : ""} to ${dest}!`);
         await fetchMedia();
       } else {
-        alert(result.error || "Upload failed");
+        alert(result.error || `Upload failed (Status ${res.status}): Please check image format and size.`);
       }
     } catch (err) {
       console.error("Upload error:", err);
-      alert("An error occurred during upload.");
+      alert(err instanceof Error ? err.message : "An error occurred during upload. Please check your connection.");
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";

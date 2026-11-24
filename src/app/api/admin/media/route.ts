@@ -9,6 +9,9 @@ import {
   listCloudinaryImages 
 } from "@/lib/cloudinary";
 
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
+
 function formatBytes(bytes: number, decimals = 1) {
   if (bytes === 0) return "0 B";
   const k = 1024;
@@ -27,7 +30,24 @@ function categorizeImage(filename: string): string {
   return "General";
 }
 
-const ALLOWED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"];
+const ALLOWED_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".jfif", ".avif", ".heic"];
+
+function getExtensionForFile(file: File): string {
+  let ext = path.extname(file.name || "").toLowerCase();
+  if (ALLOWED_EXTENSIONS.includes(ext)) return ext;
+
+  // Fallback to MIME type detection
+  if (file.type) {
+    const mime = file.type.toLowerCase();
+    if (mime.includes("jpeg") || mime.includes("jpg")) return ".jpg";
+    if (mime.includes("png")) return ".png";
+    if (mime.includes("webp")) return ".webp";
+    if (mime.includes("gif")) return ".gif";
+    if (mime.includes("svg")) return ".svg";
+    if (mime.includes("avif")) return ".avif";
+  }
+  return ext;
+}
 
 export async function GET() {
   const session = await auth();
@@ -162,13 +182,13 @@ export async function POST(request: Request) {
     if (cloudinaryActive) {
       // Cloudinary cloud upload
       for (const file of filesToProcess) {
-        const ext = path.extname(file.name).toLowerCase();
+        const ext = getExtensionForFile(file);
         if (!ALLOWED_EXTENSIONS.includes(ext)) continue;
 
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        const rawBase = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "_").toLowerCase();
-        const publicId = `${rawBase}-${Date.now()}`;
+        const rawBase = path.basename(file.name || "image", ext).replace(/[^a-zA-Z0-9_-]/g, "_").toLowerCase();
+        const publicId = `${rawBase || "image"}-${Date.now()}`;
 
         const uploadRes = await uploadToCloudinary(buffer, {
           folder: "world-ark-missions",
@@ -183,16 +203,24 @@ export async function POST(request: Request) {
         });
       }
     } else {
-      // Fallback: Local filesystem uploads
+      // If on serverless host (Vercel / AWS Lambda), the local filesystem is read-only
+      if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+        return NextResponse.json(
+          { error: "Cloudinary credentials missing in production environment. Please configure Cloudinary in Vercel settings." },
+          { status: 500 }
+        );
+      }
+
+      // Fallback: Local filesystem uploads (local development only)
       const uploadsDir = path.join(process.cwd(), "public", "uploads");
       await fs.mkdir(uploadsDir, { recursive: true });
 
       for (const file of filesToProcess) {
-        const ext = path.extname(file.name).toLowerCase();
+        const ext = getExtensionForFile(file);
         if (!ALLOWED_EXTENSIONS.includes(ext)) continue;
 
-        const rawBase = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "_").toLowerCase();
-        const safeName = `${rawBase}-${Date.now()}${ext}`;
+        const rawBase = path.basename(file.name || "image", ext).replace(/[^a-zA-Z0-9_-]/g, "_").toLowerCase();
+        const safeName = `${rawBase || "image"}-${Date.now()}${ext}`;
         const destPath = path.join(uploadsDir, safeName);
 
         const arrayBuffer = await file.arrayBuffer();
@@ -209,7 +237,7 @@ export async function POST(request: Request) {
     }
 
     if (uploadedResults.length === 0) {
-      return NextResponse.json({ error: "No valid image files were uploaded" }, { status: 400 });
+      return NextResponse.json({ error: "No valid image files were provided (supported: JPG, PNG, WEBP, GIF, SVG, AVIF)" }, { status: 400 });
     }
 
     return NextResponse.json({
@@ -220,7 +248,8 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ error: "Upload failed: " + (error instanceof Error ? error.message : "Unknown error") }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Internal upload error";
+    return NextResponse.json({ error: `Upload failed: ${message}` }, { status: 500 });
   }
 }
 

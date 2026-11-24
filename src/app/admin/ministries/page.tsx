@@ -139,8 +139,15 @@ export default function AdminMinistries() {
         method: "POST",
         body: formData,
       });
-      const data = await res.json();
-      if (data.success && data.uploaded?.[0]?.url) {
+
+      let data: any = {};
+      try {
+        data = await res.json();
+      } catch {
+        // response was not JSON
+      }
+
+      if (res.ok && data.success && data.uploaded?.[0]?.url) {
         const uploadedUrl = data.uploaded[0].url;
 
         if (target === "modal" && editingMinistry) {
@@ -160,11 +167,11 @@ export default function AdminMinistries() {
           showNotification("Ministry cover image updated!");
         }
       } else {
-        alert(data.error || "Upload failed");
+        alert(data.error || `Upload failed (Status ${res.status}): Please check the image format and file size.`);
       }
     } catch (err) {
       console.error("Upload error:", err);
-      alert("Failed to upload image");
+      alert(err instanceof Error ? err.message : "Failed to upload image. Please check your internet connection.");
     } finally {
       setUploadingImage(false);
       cardUploadTargetSlug.current = null;
