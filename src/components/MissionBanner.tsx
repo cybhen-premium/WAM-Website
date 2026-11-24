@@ -46,7 +46,7 @@ export default function MissionBanner() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          style={{ display: "flex", flexDirection: "column", gap: "22px" }}
+          className={styles.inner}
         >
           <h2 className={styles.title}>
             <span>{data.titlePrefix}</span>
