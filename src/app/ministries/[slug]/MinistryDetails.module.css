@@ -22,13 +22,13 @@
 
 .bgImage {
   object-fit: cover;
-  filter: grayscale(0.5) brightness(0.35);
+  filter: brightness(0.85);
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(18, 18, 18, 0.4) 0%, rgba(18, 18, 18, 0.95) 100%);
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.2) 0%, rgba(18, 18, 18, 0.85) 100%);
   z-index: 1;
 }
 
