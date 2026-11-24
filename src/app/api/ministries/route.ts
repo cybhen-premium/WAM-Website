@@ -52,9 +52,15 @@ export async function POST(request: Request) {
       // If single item, update or insert into existing list
       let currentList = defaultMinistries;
       try {
-        const filePath = path.join(process.cwd(), "src", "data", "ministries.json");
-        const content = await fs.readFile(filePath, "utf-8");
-        currentList = JSON.parse(content);
+        const [row] = await db.select().from(siteSettings).where(eq(siteSettings.key, "ministries_data"));
+        if (row?.value) {
+          const parsed = JSON.parse(row.value);
+          if (Array.isArray(parsed) && parsed.length > 0) currentList = parsed;
+        } else {
+          const filePath = path.join(process.cwd(), "src", "data", "ministries.json");
+          const content = await fs.readFile(filePath, "utf-8");
+          currentList = JSON.parse(content);
+        }
       } catch {}
 
       const index = currentList.findIndex((m: any) => m.slug === body.slug);

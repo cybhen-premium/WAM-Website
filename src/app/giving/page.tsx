@@ -1,14 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Heart, Landmark, Smartphone, Copy, Check, ExternalLink } from "lucide-react";
 import styles from "./Giving.module.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import defaultSections from "@/data/siteSections.json";
 
 export default function GivingPage() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [givingData, setGivingData] = useState((defaultSections as any).giving || {
+    bannerImage: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477248/world-ark-missions/momo-details.jpg",
+    title: "Give & Partner",
+    subtitle: "Your tithes, offerings, and sacrificial giving empower us to transform lives, preach the unadulterated gospel of Christ, and support community outreaches in Afienya and beyond."
+  });
+
+  useEffect(() => {
+    fetch(`/api/sections?t=${Date.now()}`, { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.giving) {
+          setGivingData((prev: any) => ({ ...prev, ...data.giving }));
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const copyToClipboard = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -29,9 +46,9 @@ export default function GivingPage() {
                 <Heart size={14} />
                 <span>Kingdom Giving &amp; Partnership</span>
               </div>
-              <h1>Give &amp; Partner</h1>
+              <h1>{givingData.title || "Give & Partner"}</h1>
               <p>
-                Your tithes, offerings, and sacrificial giving empower us to transform lives, preach the unadulterated gospel of Christ, and support community outreaches in Afienya and beyond.
+                {givingData.subtitle || "Your tithes, offerings, and sacrificial giving empower us to transform lives, preach the unadulterated gospel of Christ, and support community outreaches in Afienya and beyond."}
               </p>
             </div>
           </div>
@@ -251,7 +268,7 @@ export default function GivingPage() {
               <div className={styles.flyerImageWrapper}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
-                  src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477248/world-ark-missions/momo-details.jpg" 
+                  src={givingData.bannerImage || "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477248/world-ark-missions/momo-details.jpg"} 
                   alt="World Ark Missions Mobile Money & Bank Accounts" 
                   className={styles.flyerImage} 
                 />

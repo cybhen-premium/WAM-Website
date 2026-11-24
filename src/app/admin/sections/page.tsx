@@ -260,7 +260,8 @@ export default function SectionImagesManager() {
                     className={styles.textInput} 
                     value={sections.hero?.image || ""} 
                     onChange={(e) => setSections({ ...sections, hero: { ...sections.hero, image: e.target.value } })}
-                    placeholder="/assets/... or /uploads/..."
+                    onBlur={() => handleSaveSections(sections)}
+                    placeholder="Image URL"
                   />
                 </div>
 
@@ -411,6 +412,19 @@ export default function SectionImagesManager() {
                       <UploadCloud size={15} />
                       Change Card Photo
                     </button>
+                    <input 
+                      type="text" 
+                      className={styles.textInput} 
+                      style={{ marginTop: "6px" }}
+                      value={card.image || ""} 
+                      placeholder="Card Image URL"
+                      onChange={(e) => {
+                        const updated = [...sections.startHere];
+                        updated[idx].image = e.target.value;
+                        setSections({ ...sections, startHere: updated });
+                      }}
+                      onBlur={() => handleSaveSections(sections)}
+                    />
 
                     <div className={styles.formGroup}>
                       <label>Badge Tag Name</label>
@@ -618,7 +632,9 @@ export default function SectionImagesManager() {
                     type="text" 
                     className={styles.textInput} 
                     value={sections.founder?.founderImage || ""} 
+                    placeholder="Founder Image URL"
                     onChange={(e) => setSections({ ...sections, founder: { ...sections.founder, founderImage: e.target.value } })}
+                    onBlur={() => handleSaveSections(sections)}
                   />
                 </div>
 
@@ -644,7 +660,9 @@ export default function SectionImagesManager() {
                     type="text" 
                     className={styles.textInput} 
                     value={sections.founder?.familyImage || ""} 
+                    placeholder="Worship Family Image URL"
                     onChange={(e) => setSections({ ...sections, founder: { ...sections.founder, familyImage: e.target.value } })}
+                    onBlur={() => handleSaveSections(sections)}
                   />
                 </div>
               </div>
@@ -821,7 +839,9 @@ export default function SectionImagesManager() {
                     type="text" 
                     className={styles.textInput} 
                     value={sections.giving?.bannerImage || ""} 
+                    placeholder="Giving Banner Image URL"
                     onChange={(e) => setSections({ ...sections, giving: { ...sections.giving, bannerImage: e.target.value } })}
+                    onBlur={() => handleSaveSections(sections)}
                   />
                 </div>
 
@@ -885,7 +905,9 @@ export default function SectionImagesManager() {
                     type="text" 
                     className={styles.textInput} 
                     value={sections.missionBanner?.image || ""} 
+                    placeholder="Mission Banner Image URL"
                     onChange={(e) => setSections({ ...sections, missionBanner: { ...sections.missionBanner, image: e.target.value } })}
+                    onBlur={() => handleSaveSections(sections)}
                   />
                 </div>
 
