@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 
 export default function SectionImagesManager() {
-  const [activeTab, setActiveTab] = useState<"hero" | "startHere" | "services" | "founder" | "ministries" | "giving">("hero");
+  const [activeTab, setActiveTab] = useState<"hero" | "startHere" | "services" | "founder" | "ministries" | "giving" | "missionBanner">("hero");
   const [sections, setSections] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -212,6 +212,12 @@ export default function SectionImagesManager() {
               onClick={() => setActiveTab("giving")}
             >
               6. Giving Page
+            </button>
+            <button 
+              className={`${styles.navTabBtn} ${activeTab === "missionBanner" ? styles.activeTab : ""}`}
+              onClick={() => setActiveTab("missionBanner")}
+            >
+              7. Mission Banner
             </button>
           </div>
 
@@ -837,6 +843,80 @@ export default function SectionImagesManager() {
                       className={styles.textarea} 
                       value={sections.giving?.subtitle || ""} 
                       onChange={(e) => setSections({ ...sections, giving: { ...sections.giving, subtitle: e.target.value } })}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 7: MISSION BANNER */}
+          {activeTab === "missionBanner" && (
+            <div className={styles.sectionCard}>
+              <div className={styles.sectionTitleRow}>
+                <div>
+                  <h2>Mission &amp; Vision Banner</h2>
+                  <p>Customize the full-width church mission banner, background photo, and core declarations.</p>
+                </div>
+                <Link href="/#services" target="_blank" style={{ color: "#b8d432", fontSize: "0.85rem", textDecoration: "none", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                  View Live Section <ExternalLink size={13} />
+                </Link>
+              </div>
+
+              <div className={styles.formGrid}>
+                <div className={styles.imageControlCol}>
+                  <label>Banner Background Photo</label>
+                  <div className={styles.imagePreview}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={sections.missionBanner?.image} alt="Mission Banner Background" />
+                  </div>
+                  <button 
+                    className={styles.uploadImageBtn}
+                    onClick={() => triggerUploadFor(async (url) => {
+                      const updated = { ...sections, missionBanner: { ...sections.missionBanner, image: url } };
+                      setSections(updated);
+                      await handleSaveSections(updated);
+                    })}
+                  >
+                    <UploadCloud size={16} />
+                    Upload Mission Photo
+                  </button>
+                  <input 
+                    type="text" 
+                    className={styles.textInput} 
+                    value={sections.missionBanner?.image || ""} 
+                    onChange={(e) => setSections({ ...sections, missionBanner: { ...sections.missionBanner, image: e.target.value } })}
+                  />
+                </div>
+
+                <div className={styles.textControlCol}>
+                  <div className={styles.formGroup}>
+                    <label>Title Prefix (White Text)</label>
+                    <input 
+                      type="text" 
+                      className={styles.textInput} 
+                      value={sections.missionBanner?.titlePrefix || "A place of salvation,"} 
+                      onChange={(e) => setSections({ ...sections, missionBanner: { ...sections.missionBanner, titlePrefix: e.target.value } })}
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label>Title Highlight (Lime Accent Text)</label>
+                    <input 
+                      type="text" 
+                      className={styles.textInput} 
+                      value={sections.missionBanner?.titleHighlight || "transformation & purpose."} 
+                      onChange={(e) => setSections({ ...sections, missionBanner: { ...sections.missionBanner, titleHighlight: e.target.value } })}
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label>Mission Description Paragraph</label>
+                    <textarea 
+                      rows={4}
+                      className={styles.textarea} 
+                      value={sections.missionBanner?.description || ""} 
+                      onChange={(e) => setSections({ ...sections, missionBanner: { ...sections.missionBanner, description: e.target.value } })}
                     />
                   </div>
                 </div>

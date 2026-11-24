@@ -1,15 +1,38 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./MissionBanner.module.css";
 import { motion } from "framer-motion";
+import defaultSections from "@/data/siteSections.json";
 
 export default function MissionBanner() {
+  const [data, setData] = useState(
+    (defaultSections as any).missionBanner || {
+      image: "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477218/world-ark-missions/7.jpg",
+      titlePrefix: "A place of salvation,",
+      titleHighlight: "transformation & purpose.",
+      description:
+        "We are dedicated to proclaiming the uncompromised Word of God, healing broken lives, and equipping believers to walk in spiritual authority, character, and divine destiny.",
+    }
+  );
+
+  useEffect(() => {
+    fetch(`/api/sections?t=${Date.now()}`, { cache: "no-store" })
+      .then((res) => res.json())
+      .then((resData) => {
+        if (resData?.missionBanner) {
+          setData(resData.missionBanner);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <section className={styles.bannerSection}>
       <Image 
-        src="https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477218/world-ark-missions/7.jpg" 
+        src={data.image} 
         alt="World Ark Missions Sanctuary Gathering" 
         fill
         sizes="100vw"
@@ -23,16 +46,15 @@ export default function MissionBanner() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+          style={{ display: "flex", flexDirection: "column", gap: "22px" }}
         >
           <h2 className={styles.title}>
-            A place of salvation,<br />
-            <span className="text-accent">transformation & purpose.</span>
+            <span>{data.titlePrefix}</span>
+            <span className="text-accent">{data.titleHighlight}</span>
           </h2>
 
           <p className={styles.description}>
-            We are dedicated to proclaiming the uncompromised Word of God, healing broken lives, 
-            and equipping believers to walk in spiritual authority, character, and divine destiny.
+            {data.description}
           </p>
 
           <div className={styles.buttons}>
