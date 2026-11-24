@@ -24,6 +24,25 @@ export function isCloudinaryConfigured(): boolean {
   );
 }
 
+/**
+ * Generates signed parameters for direct browser-to-Cloudinary upload.
+ * Completely bypasses Vercel serverless request body size limits (Status 413).
+ */
+export function generateUploadSignature(folder = "world-ark-missions") {
+  const timestamp = Math.round(new Date().getTime() / 1000);
+  const signature = cloudinary.utils.api_sign_request(
+    { timestamp, folder },
+    API_SECRET
+  );
+  return {
+    signature,
+    timestamp,
+    apiKey: API_KEY,
+    cloudName: CLOUD_NAME,
+    folder,
+  };
+}
+
 export interface CloudinaryUploadResult {
   secure_url: string;
   public_id: string;

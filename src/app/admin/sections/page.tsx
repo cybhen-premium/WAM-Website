@@ -8,6 +8,7 @@ import {
   Heart, ExternalLink, Image as ImageIcon, Save, Calendar, Users 
 } from "lucide-react";
 import Link from "next/link";
+import { uploadMediaFile } from "@/lib/mediaUploadClient";
 
 export default function SectionImagesManager() {
   const [activeTab, setActiveTab] = useState<"hero" | "startHere" | "services" | "founder" | "ministries" | "giving" | "missionBanner">("hero");
@@ -70,28 +71,9 @@ export default function SectionImagesManager() {
   const handleFileUpload = async (file: File) => {
     if (!uploadCallbackRef.current) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
-
     try {
-      const res = await fetch("/api/admin/media", {
-        method: "POST",
-        body: formData,
-      });
-
-      let data: any = {};
-      try {
-        data = await res.json();
-      } catch {
-        // response was not JSON
-      }
-
-      if (res.ok && data.success && data.uploaded?.[0]?.url) {
-        const uploadedUrl = data.uploaded[0].url;
-        uploadCallbackRef.current(uploadedUrl);
-      } else {
-        alert(data.error || `Upload failed (Status ${res.status}): Please check the image format and file size.`);
-      }
+      const uploadedUrl = await uploadMediaFile(file);
+      uploadCallbackRef.current(uploadedUrl);
     } catch (err) {
       console.error("Upload error:", err);
       alert(err instanceof Error ? err.message : "Failed to upload image. Please check your internet connection.");

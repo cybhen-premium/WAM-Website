@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import styles from "./Media.module.css";
 import Sidebar from "@/components/Sidebar";
+import { uploadMediaFile } from "@/lib/mediaUploadClient";
 
 interface MediaItem {
   name: string;
@@ -74,31 +75,18 @@ export default function MediaManager() {
     if (!files || files.length === 0) return;
 
     setUploading(true);
-    const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
-    }
 
     try {
-      const res = await fetch("/api/admin/media", {
-        method: "POST",
-        body: formData,
-      });
+      const fileArray = Array.from(files);
+      const uploadedUrls: string[] = [];
 
-      let result: any = {};
-      try {
-        result = await res.json();
-      } catch {
-        // response was not JSON
+      for (const file of fileArray) {
+        const url = await uploadMediaFile(file);
+        uploadedUrls.push(url);
       }
 
-      if (res.ok && result.success) {
-        const dest = result.storage === "cloudinary" ? "Cloudinary" : "server";
-        showNotification(`Uploaded ${result.count} image${result.count > 1 ? "s" : ""} to ${dest}!`);
-        await fetchMedia();
-      } else {
-        alert(result.error || `Upload failed (Status ${res.status}): Please check image format and size.`);
-      }
+      showNotification(`Uploaded ${uploadedUrls.length} image${uploadedUrls.length > 1 ? "s" : ""} to Cloudinary!`);
+      await fetchMedia();
     } catch (err) {
       console.error("Upload error:", err);
       alert(err instanceof Error ? err.message : "An error occurred during upload. Please check your connection.");

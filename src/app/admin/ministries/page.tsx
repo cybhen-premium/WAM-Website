@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar";
 import styles from "./MinistriesAdmin.module.css";
 import { Plus, Edit2, UploadCloud, ExternalLink, X, Check, RefreshCw, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { uploadMediaFile } from "@/lib/mediaUploadClient";
 
 interface Ministry {
   slug: string;
@@ -131,43 +132,25 @@ export default function AdminMinistries() {
   // Upload image handler
   const handleFileUpload = async (file: File, target: "modal" | "card") => {
     setUploadingImage(true);
-    const formData = new FormData();
-    formData.append("file", file);
 
     try {
-      const res = await fetch("/api/admin/media", {
-        method: "POST",
-        body: formData,
-      });
+      const uploadedUrl = await uploadMediaFile(file);
 
-      let data: any = {};
-      try {
-        data = await res.json();
-      } catch {
-        // response was not JSON
-      }
+      if (target === "modal" && editingMinistry) {
+        setEditingMinistry({ ...editingMinistry, image: uploadedUrl });
+        showNotification("Image uploaded! Click Save to apply.");
+      } else if (target === "card" && cardUploadTargetSlug.current) {
+        const slug = cardUploadTargetSlug.current;
+        const updated = ministries.map((m) => m.slug === slug ? { ...m, image: uploadedUrl } : m);
+        setMinistries(updated);
 
-      if (res.ok && data.success && data.uploaded?.[0]?.url) {
-        const uploadedUrl = data.uploaded[0].url;
-
-        if (target === "modal" && editingMinistry) {
-          setEditingMinistry({ ...editingMinistry, image: uploadedUrl });
-          showNotification("Image uploaded! Click Save to apply.");
-        } else if (target === "card" && cardUploadTargetSlug.current) {
-          const slug = cardUploadTargetSlug.current;
-          const updated = ministries.map((m) => m.slug === slug ? { ...m, image: uploadedUrl } : m);
-          setMinistries(updated);
-
-          // Save to server
-          await fetch("/api/ministries", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updated),
-          });
-          showNotification("Ministry cover image updated!");
-        }
-      } else {
-        alert(data.error || `Upload failed (Status ${res.status}): Please check the image format and file size.`);
+        // Save to server
+        await fetch("/api/ministries", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updated),
+        });
+        showNotification("Ministry cover image updated!");
       }
     } catch (err) {
       console.error("Upload error:", err);
