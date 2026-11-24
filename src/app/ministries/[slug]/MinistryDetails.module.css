@@ -4,14 +4,19 @@
   color: var(--text-primary);
 }
 
+/* =========================================================================
+   HERO BANNER
+   ========================================================================= */
 .hero {
   position: relative;
   min-height: 520px;
   display: flex;
   align-items: flex-end;
-  padding-bottom: 60px;
+  padding-top: 140px;
+  padding-bottom: 64px;
   color: white;
   overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .heroBg {
@@ -22,20 +27,25 @@
 
 .bgImage {
   object-fit: cover;
-  filter: brightness(0.85);
+  filter: brightness(0.8);
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(18, 18, 18, 0.2) 0%, rgba(18, 18, 18, 0.85) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(18, 18, 18, 0.45) 0%,
+    rgba(18, 18, 18, 0.7) 50%,
+    rgba(18, 18, 18, 0.98) 100%
+  );
   z-index: 1;
 }
 
 .heroContent {
   position: relative;
   z-index: 2;
-  max-width: 800px;
+  max-width: 860px;
 }
 
 .backButton {
@@ -43,113 +53,306 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--color-accent);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
   text-decoration: none;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .backButton:hover {
   transform: translateX(-4px);
+  opacity: 0.9;
 }
 
 .iconWrapper {
-  width: 64px;
-  height: 64px;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  width: 60px;
+  height: 60px;
+  background: rgba(184, 212, 50, 0.15);
+  border: 1px solid rgba(184, 212, 50, 0.35);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
-.heroContent h1 {
+.title {
   font-family: var(--font-heading);
   font-weight: 900;
   font-variation-settings: "wdth" 125;
   text-transform: uppercase;
-  letter-spacing: -0.01em;
-  line-height: 0.9;
-  font-size: clamp(40px, 6vw, 80px);
-  margin-bottom: 1rem;
+  letter-spacing: -0.015em;
+  line-height: 0.92;
+  font-size: clamp(42px, 6.5vw, 84px);
+  margin-bottom: 1.25rem;
+  color: #ffffff;
 }
 
-.heroContent p {
-  font-size: 1.125rem;
-  color: var(--text-muted);
+.tagline {
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  color: #cbd5e1;
   line-height: 1.6;
+  max-width: 680px;
 }
 
+/* =========================================================================
+   ABOUT & DETAILS SECTION
+   ========================================================================= */
 .detailsSection {
-  padding: var(--section-padding);
+  padding: clamp(60px, 8vw, 100px) 0;
+  background-color: var(--bg-primary);
 }
 
 .detailsGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 60px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+  gap: clamp(36px, 5vw, 64px);
+  align-items: start;
 }
 
 .textContent {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
-.textContent h2 {
+.badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.sectionHeading {
   font-family: var(--font-heading);
   font-weight: 900;
+  font-variation-settings: "wdth" 125;
   text-transform: uppercase;
-  font-size: 32px;
+  letter-spacing: -0.01em;
+  font-size: clamp(30px, 3.5vw, 44px);
+  line-height: 1.05;
   color: #ffffff;
+  margin: 0;
 }
 
-.textContent p {
-  font-size: 1.05rem;
-  line-height: 1.8;
+.descriptionParagraph {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pillarCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pillarCard h4 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pillarCard p {
+  font-size: 0.9rem;
+  line-height: 1.55;
   color: var(--text-muted);
+  margin: 0;
+}
+
+/* =========================================================================
+   SIDEBAR & GET INVOLVED CARD
+   ========================================================================= */
+.sidebar {
+  position: sticky;
+  top: 120px;
+}
+
+.joinCard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-top: 3px solid var(--color-accent);
+  border-radius: 14px;
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.joinHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.joinHeader h3 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+}
+
+.joinHeader p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.joinDetailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.2rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.joinDetailItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+.joinDetailIcon {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.joinButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: var(--color-accent);
+  color: #121212;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 1rem 1.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 20px rgba(184, 212, 50, 0.25);
+}
+
+.joinButton:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 10px 25px rgba(184, 212, 50, 0.35);
+}
+
+/* =========================================================================
+   GALLERY SECTION
+   ========================================================================= */
+.gallerySection {
+  padding: clamp(60px, 8vw, 100px) 0;
+  background: rgba(255, 255, 255, 0.015);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.galleryHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 40px;
+}
+
+.galleryHeader h2 {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-variation-settings: "wdth" 125;
+  text-transform: uppercase;
+  font-size: clamp(28px, 3.5vw, 42px);
+  color: #ffffff;
+  margin: 0;
+}
+
+.galleryHeader p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .galleryGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .galleryItem {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 11;
   overflow: hidden;
+  border-radius: 12px;
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
 }
 
 .galleryItem img {
   object-fit: cover;
-  filter: grayscale(0.2);
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .galleryItem:hover img {
-  transform: scale(1.05);
-  filter: grayscale(0);
+  transform: scale(1.06);
 }
 
+/* =========================================================================
+   RESPONSIVE QUERIES
+   ========================================================================= */
 @media (max-width: 991px) {
   .detailsGrid {
     grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .galleryGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
   .hero {
-    min-height: 400px;
-    padding-bottom: 36px;
+    min-height: 420px;
+    padding-top: 120px;
+    padding-bottom: 40px;
   }
 
   .galleryGrid {
