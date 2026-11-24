@@ -7,13 +7,21 @@ import fs from "fs/promises";
 import path from "path";
 import defaultMinistries from "@/data/ministries.json";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
+  const headers = {
+    "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+    "CDN-Cache-Control": "no-store",
+  };
+
   try {
     const [row] = await db.select().from(siteSettings).where(eq(siteSettings.key, "ministries_data"));
     if (row?.value) {
       const parsed = JSON.parse(row.value);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return NextResponse.json(parsed);
+        return NextResponse.json(parsed, { headers });
       }
     }
   } catch (error) {
@@ -23,9 +31,9 @@ export async function GET() {
   try {
     const filePath = path.join(process.cwd(), "src", "data", "ministries.json");
     const content = await fs.readFile(filePath, "utf-8");
-    return NextResponse.json(JSON.parse(content));
+    return NextResponse.json(JSON.parse(content), { headers });
   } catch {
-    return NextResponse.json(defaultMinistries);
+    return NextResponse.json(defaultMinistries, { headers });
   }
 }
 
@@ -58,8 +66,8 @@ export async function POST(request: Request) {
           title: body.title,
           shortDescription: body.shortDescription || "",
           longDescription: body.longDescription || "",
-          image: body.image || "/assets/11.jpg",
-          gallery: body.gallery || ["/assets/11.jpg"],
+          image: body.image || "https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477208/world-ark-missions/11.jpg",
+          gallery: body.gallery || ["https://res.cloudinary.com/dm5bp1efp/image/upload/v1795477208/world-ark-missions/11.jpg"],
           iconName: body.iconName || "Users"
         });
       }
@@ -87,13 +95,21 @@ export async function POST(request: Request) {
         await db.insert(siteSettings).values({
           key: "ministries_data",
           value: jsonString,
+          type: "json",
         });
       }
     } catch (dbErr) {
       console.warn("Database save failed for ministries_data:", dbErr);
     }
 
-    return NextResponse.json({ success: true, ministries: updatedList });
+    return NextResponse.json(
+      { success: true, ministries: updatedList },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
+    );
   } catch (error) {
     console.error("Failed to save ministry:", error);
     return NextResponse.json({ error: "Failed to save ministry" }, { status: 500 });

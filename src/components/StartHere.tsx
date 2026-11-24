@@ -47,7 +47,7 @@ export default function StartHere() {
   });
 
   useEffect(() => {
-    fetch("/api/sections")
+    fetch(`/api/sections?t=${Date.now()}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data?.startHere) && data.startHere.length > 0) {

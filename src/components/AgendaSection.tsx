@@ -50,7 +50,7 @@ export default function AgendaSection() {
   });
 
   useEffect(() => {
-    fetch("/api/sections")
+    fetch(`/api/sections?t=${Date.now()}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data?.gatherings) && data.gatherings.length > 0) {

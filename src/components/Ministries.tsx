@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Ministries.module.css";
-import { ministriesData, MinistryData } from "@/data/ministriesData";
+import defaultMinistries from "@/data/ministries.json";
+import { MinistryData } from "@/data/ministriesData";
 import { motion } from "framer-motion";
 
 export default function Ministries() {
-  const [list, setList] = useState<MinistryData[]>(ministriesData);
+  const [list, setList] = useState<MinistryData[]>(defaultMinistries as unknown as MinistryData[]);
   const [header, setHeader] = useState({
     badge: "Our Ministries",
     titlePrefix: "Belong &",
@@ -17,7 +18,7 @@ export default function Ministries() {
   });
 
   useEffect(() => {
-    fetch("/api/ministries")
+    fetch(`/api/ministries?t=${Date.now()}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
@@ -26,7 +27,7 @@ export default function Ministries() {
       })
       .catch(() => {});
 
-    fetch("/api/sections")
+    fetch(`/api/sections?t=${Date.now()}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (data?.ministriesHeader) {

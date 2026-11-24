@@ -41,6 +41,32 @@ export default function SectionImagesManager() {
     setTimeout(() => setNotification(null), 3000);
   };
 
+  const handleSaveSections = async (dataToSave: any) => {
+    setSaving(true);
+    try {
+      const res = await fetch("/api/sections", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSave),
+      });
+
+      if (res.ok) {
+        showNotification("All changes saved and live on website!");
+        return true;
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        alert(errData.error || "Failed to save changes.");
+        return false;
+      }
+    } catch (err) {
+      console.error("Save error:", err);
+      alert("Error saving sections.");
+      return false;
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const handleFileUpload = async (file: File) => {
     if (!uploadCallbackRef.current) return;
 
@@ -54,8 +80,8 @@ export default function SectionImagesManager() {
       });
       const data = await res.json();
       if (data.success && data.uploaded?.[0]?.url) {
-        uploadCallbackRef.current(data.uploaded[0].url);
-        showNotification("Image uploaded and updated!");
+        const uploadedUrl = data.uploaded[0].url;
+        uploadCallbackRef.current(uploadedUrl);
       } else {
         alert(data.error || "Upload failed");
       }
@@ -75,25 +101,7 @@ export default function SectionImagesManager() {
 
   const handleSaveAll = async () => {
     if (!sections) return;
-    setSaving(true);
-    try {
-      const res = await fetch("/api/sections", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(sections),
-      });
-
-      if (res.ok) {
-        showNotification("All section names, headings & images saved successfully!");
-      } else {
-        alert("Failed to save changes.");
-      }
-    } catch (err) {
-      console.error("Save error:", err);
-      alert("Error saving sections.");
-    } finally {
-      setSaving(false);
-    }
+    await handleSaveSections(sections);
   };
 
   if (loading || !sections) {
@@ -231,7 +239,11 @@ export default function SectionImagesManager() {
                   <div className={styles.imageActions}>
                     <button 
                       className={styles.uploadImageBtn}
-                      onClick={() => triggerUploadFor((url) => setSections({ ...sections, hero: { ...sections.hero, image: url } }))}
+                      onClick={() => triggerUploadFor(async (url) => {
+                        const updated = { ...sections, hero: { ...sections.hero, image: url } };
+                        setSections(updated);
+                        await handleSaveSections(updated);
+                      })}
                     >
                       <UploadCloud size={16} />
                       Upload New Hero Photo
@@ -382,10 +394,12 @@ export default function SectionImagesManager() {
                     <button 
                       className={styles.uploadImageBtn}
                       style={{ width: "100%", justifyContent: "center" }}
-                      onClick={() => triggerUploadFor((url) => {
+                      onClick={() => triggerUploadFor(async (url) => {
                         const updated = [...sections.startHere];
                         updated[idx].image = url;
-                        setSections({ ...sections, startHere: updated });
+                        const newSections = { ...sections, startHere: updated };
+                        setSections(newSections);
+                        await handleSaveSections(newSections);
                       })}
                     >
                       <UploadCloud size={15} />
@@ -585,7 +599,11 @@ export default function SectionImagesManager() {
                   </div>
                   <button 
                     className={styles.uploadImageBtn}
-                    onClick={() => triggerUploadFor((url) => setSections({ ...sections, founder: { ...sections.founder, founderImage: url } }))}
+                    onClick={() => triggerUploadFor(async (url) => {
+                      const updated = { ...sections, founder: { ...sections.founder, founderImage: url } };
+                      setSections(updated);
+                      await handleSaveSections(updated);
+                    })}
                   >
                     <UploadCloud size={16} />
                     Change Founder Portrait
@@ -607,7 +625,11 @@ export default function SectionImagesManager() {
                   </div>
                   <button 
                     className={styles.uploadImageBtn}
-                    onClick={() => triggerUploadFor((url) => setSections({ ...sections, founder: { ...sections.founder, familyImage: url } }))}
+                    onClick={() => triggerUploadFor(async (url) => {
+                      const updated = { ...sections, founder: { ...sections.founder, familyImage: url } };
+                      setSections(updated);
+                      await handleSaveSections(updated);
+                    })}
                   >
                     <UploadCloud size={16} />
                     Change Worship Photo
@@ -780,7 +802,11 @@ export default function SectionImagesManager() {
                   </div>
                   <button 
                     className={styles.uploadImageBtn}
-                    onClick={() => triggerUploadFor((url) => setSections({ ...sections, giving: { ...sections.giving, bannerImage: url } }))}
+                    onClick={() => triggerUploadFor(async (url) => {
+                      const updated = { ...sections, giving: { ...sections.giving, bannerImage: url } };
+                      setSections(updated);
+                      await handleSaveSections(updated);
+                    })}
                   >
                     <UploadCloud size={16} />
                     Upload Giving Photo

@@ -11,7 +11,7 @@ export default function Founder() {
   const [founderData, setFounderData] = useState(defaultSections.founder);
 
   useEffect(() => {
-    fetch("/api/sections")
+    fetch(`/api/sections?t=${Date.now()}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (data?.founder) {

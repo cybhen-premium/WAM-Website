@@ -11,7 +11,7 @@ export default function Hero() {
   const [heroData, setHeroData] = useState(defaultSections.hero);
 
   useEffect(() => {
-    fetch("/api/sections")
+    fetch(`/api/sections?t=${Date.now()}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (data?.hero?.image) {

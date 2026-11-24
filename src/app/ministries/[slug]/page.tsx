@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { ministriesData, MinistryData } from "@/data/ministriesData";
+import defaultMinistries from "@/data/ministries.json";
+import { MinistryData } from "@/data/ministriesData";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Users, UserCircle, Crown, Baby, Cross } from "lucide-react";
@@ -13,10 +14,10 @@ import Footer from "@/components/Footer";
 
 export default function MinistryPage() {
   const { slug } = useParams();
-  const [ministries, setMinistries] = useState<MinistryData[]>(ministriesData);
+  const [ministries, setMinistries] = useState<MinistryData[]>(defaultMinistries as unknown as MinistryData[]);
 
   useEffect(() => {
-    fetch("/api/ministries")
+    fetch(`/api/ministries?t=${Date.now()}`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
