@@ -1,10 +1,21 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./Testimonials.module.css";
 import { motion } from "framer-motion";
+import { User } from "lucide-react";
 
-const testimonials = [
+interface Testimonial {
+  id?: string;
+  name: string;
+  role?: string;
+  content: string;
+  image?: string;
+  imageUrl?: string;
+}
+
+const defaultTestimonials: Testimonial[] = [
   {
     name: "Sarah Mensah",
     role: "Women of Grace Member",
@@ -26,6 +37,19 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const [list, setList] = useState<Testimonial[]>(defaultTestimonials);
+
+  useEffect(() => {
+    fetch(`/api/testimonials?t=${Date.now()}`, { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setList(data);
+        }
+      })
+      .catch((err) => console.error("Failed to load testimonials:", err));
+  }, []);
+
   return (
     <section id="testimonials" className={styles.section}>
       <div className="container">
@@ -37,36 +61,53 @@ export default function Testimonials() {
         </div>
 
         <div className={styles.grid}>
-          {testimonials.map((t, idx) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className={styles.testimonialCard}
-            >
-              <p className={styles.quoteText}>
-                &ldquo;{t.content}&rdquo;
-              </p>
+          {list.map((t, idx) => {
+            const avatarUrl = t.imageUrl || t.image;
+            return (
+              <motion.div
+                key={t.id || t.name + idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className={styles.testimonialCard}
+              >
+                <p className={styles.quoteText}>
+                  &ldquo;{t.content}&rdquo;
+                </p>
 
-              <div className={styles.authorRow}>
-                <div className={styles.avatarWrapper}>
-                  <Image 
-                    src={t.image} 
-                    alt={t.name} 
-                    fill 
-                    sizes="44px"
-                    className={styles.avatar}
-                  />
+                <div className={styles.authorRow}>
+                  <div className={styles.avatarWrapper}>
+                    {avatarUrl ? (
+                      <Image 
+                        src={avatarUrl} 
+                        alt={t.name} 
+                        fill 
+                        sizes="44px"
+                        className={styles.avatar}
+                      />
+                    ) : (
+                      <div style={{
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "rgba(255,255,255,0.1)",
+                        color: "#b8d432"
+                      }}>
+                        <User size={20} />
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles.authorMeta}>
+                    <strong className={styles.authorName}>{t.name}</strong>
+                    <span className={styles.authorRole}>{t.role}</span>
+                  </div>
                 </div>
-                <div className={styles.authorMeta}>
-                  <strong className={styles.authorName}>{t.name}</strong>
-                  <span className={styles.authorRole}>{t.role}</span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
