@@ -23,7 +23,7 @@ export default function AdminMinistries() {
   const [editingMinistry, setEditingMinistry] = useState<Ministry | null>(null);
   const [isNew, setIsNew] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingSlug, setUploadingSlug] = useState<string | null>(null);
   const [notification, setNotification] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -131,7 +131,8 @@ export default function AdminMinistries() {
 
   // Upload image handler
   const handleFileUpload = async (file: File, target: "modal" | "card") => {
-    setUploadingImage(true);
+    const activeTarget = target === "modal" ? "modal" : (cardUploadTargetSlug.current || "card");
+    setUploadingSlug(activeTarget);
 
     try {
       const uploadedUrl = await uploadMediaFile(file);
@@ -156,8 +157,9 @@ export default function AdminMinistries() {
       console.error("Upload error:", err);
       alert(err instanceof Error ? err.message : "Failed to upload image. Please check your internet connection.");
     } finally {
-      setUploadingImage(false);
+      setUploadingSlug(null);
       cardUploadTargetSlug.current = null;
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
@@ -311,10 +313,10 @@ export default function AdminMinistries() {
                       <button 
                         className={styles.changeImageOverlayBtn}
                         onClick={() => triggerCardImageUpload(m.slug)}
-                        disabled={uploadingImage}
+                        disabled={uploadingSlug !== null}
                       >
                         <UploadCloud size={15} />
-                        {uploadingImage ? "Uploading..." : "Change Image"}
+                        {uploadingSlug === m.slug ? "Uploading..." : "Change Image"}
                       </button>
                     </div>
                   </div>
@@ -425,7 +427,7 @@ export default function AdminMinistries() {
                     />
                     <label className={styles.uploadFileBtn}>
                       <UploadCloud size={16} />
-                      <span>{uploadingImage ? "Uploading..." : "Upload Photo"}</span>
+                      <span>{uploadingSlug === "modal" ? "Uploading..." : "Upload Photo"}</span>
                       <input 
                         type="file" 
                         accept="image/*" 
