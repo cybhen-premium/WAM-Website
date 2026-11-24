@@ -298,7 +298,7 @@ export default function SectionImagesManager() {
                       className={styles.textInput} 
                       value={sections.hero?.serviceHeading || ""} 
                       onChange={(e) => setSections({ ...sections, hero: { ...sections.hero, serviceHeading: e.target.value } })}
-                      placeholder="Now two services"
+                      placeholder="Join Us In Worship"
                     />
                   </div>
 
@@ -309,7 +309,7 @@ export default function SectionImagesManager() {
                       className={styles.textInput} 
                       value={sections.hero?.serviceTimes || ""} 
                       onChange={(e) => setSections({ ...sections, hero: { ...sections.hero, serviceTimes: e.target.value } })}
-                      placeholder="Sundays 8:00 AM · 10:30 AM"
+                      placeholder="Sundays at 8:00 AM"
                     />
                   </div>
                 </div>

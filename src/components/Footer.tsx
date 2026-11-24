@@ -31,7 +31,7 @@ export default function Footer() {
             <p className={styles.colText}>
               {brand.address}<br />
               GPS: {brand.gps}<br />
-              Sundays 8:00 · 10:30
+              Sundays 8:00 AM
             </p>
           </div>
 

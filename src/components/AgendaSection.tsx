@@ -12,7 +12,7 @@ const defaultGatherings = defaultSections.gatherings || [
     badge: "WEEKLY",
     category: "Main Worship Service",
     title: "Sunday Celebration Service",
-    time: "8:00 AM & 10:30 AM · Main Sanctuary, Afienya",
+    time: "8:00 AM · Main Sanctuary, Afienya",
     link: "#services",
   },
   {

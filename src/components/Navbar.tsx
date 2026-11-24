@@ -157,7 +157,7 @@ export default function Navbar() {
           <div className={styles.mobileFooter}>
             <p className={styles.mobileInfo}>
               <strong>Afienya, Greater Accra, Ghana</strong><br />
-              Sundays: 8:00 AM · 10:30 AM | Wednesday: 6:30 PM | Friday: 6:30 PM
+              Sundays: 8:00 AM | Wednesday: 6:30 PM | Friday: 6:30 PM
             </p>
             <div className={styles.mobileSocials}>
               <a href="https://facebook.com" target="_blank" rel="noreferrer" className={styles.mobileSocialLink}>Facebook</a>
